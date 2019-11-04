@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>untagged on Alexander (AJ) Wiebe</title>
-    <link>/tags/untagged/</link>
+    <link>https://softwarebyaj.com/tags/untagged/</link>
     <description>Recent content in untagged on Alexander (AJ) Wiebe</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 02 Nov 2019 16:31:45 +0000</lastBuildDate>
     
-	<atom:link href="/tags/untagged/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://softwarebyaj.com/tags/untagged/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>My First Post</title>
-      <link>/posts/my-first-post/</link>
+      <link>https://softwarebyaj.com/posts/my-first-post/</link>
       <pubDate>Sat, 02 Nov 2019 16:31:45 +0000</pubDate>
       
-      <guid>/posts/my-first-post/</guid>
+      <guid>https://softwarebyaj.com/posts/my-first-post/</guid>
       <description></description>
     </item>
     
