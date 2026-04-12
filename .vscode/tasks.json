@@ -1,0 +1,164 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+
+    // ── Jupyter ──────────────────────────────────────────────────────────────
+
+    {
+      "label": "Start Jupyter Lab",
+      "type": "shell",
+      "command": "jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --PasswordIdentityProvider.hashed_password=''",
+      "group": "none",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+
+    // ── Notebook quality ─────────────────────────────────────────────────────
+
+    {
+      "label": "Lint Notebooks",
+      "type": "shell",
+      "command": "nbqa ruff notebooks/",
+      "group": "none",
+      "problemMatcher": []
+    },
+    {
+      "label": "Format Notebooks",
+      "type": "shell",
+      "command": "nbqa ruff --fix notebooks/",
+      "group": "none",
+      "problemMatcher": []
+    },
+    {
+      "label": "Strip Notebook Outputs",
+      "type": "shell",
+      "command": "find notebooks -name '*.ipynb' | xargs nbstripout",
+      "group": "none",
+      "problemMatcher": []
+    },
+    {
+      "label": "Notebook Quality",
+      "dependsOn": ["Lint Notebooks", "Format Notebooks"],
+      "dependsOrder": "sequence"
+    },
+
+    // ── Notebook management ──────────────────────────────────────────────────
+
+    {
+      "label": "New Notebook from Template",
+      "type": "shell",
+      "command": "cp \"notebooks/${input:templateChoice}.ipynb\" \"notebooks/${input:notebookName}.ipynb\"",
+      "group": "none",
+      "problemMatcher": []
+    },
+    {
+      "label": "Clear All Outputs",
+      "type": "shell",
+      "command": "find notebooks -name '*.ipynb' | xargs jupyter nbconvert --clear-output --inplace",
+      "group": "none",
+      "problemMatcher": []
+    },
+    {
+      "label": "Export Active Notebook to HTML",
+      "type": "shell",
+      "command": "jupyter nbconvert --to html \"${file}\"",
+      "group": "none",
+      "problemMatcher": []
+    },
+    {
+      "label": "Export Active Notebook to Script",
+      "type": "shell",
+      "command": "jupyter nbconvert --to script \"${file}\"",
+      "group": "none",
+      "problemMatcher": []
+    },
+
+    // ── Dependencies ─────────────────────────────────────────────────────────
+
+    {
+      "label": "Install Dependencies",
+      "type": "shell",
+      "command": "pip install '.[dev]'",
+      "group": "none",
+      "problemMatcher": []
+    },
+    {
+      "label": "Show Outdated Packages",
+      "type": "shell",
+      "command": "pip list --outdated",
+      "group": "none",
+      "problemMatcher": []
+    },
+
+    // ── Quarto ───────────────────────────────────────────────────────────────
+
+    {
+      "label": "Quarto Preview",
+      "type": "shell",
+      "command": "quarto preview",
+      "group": "none",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Quarto Render",
+      "type": "shell",
+      "command": "quarto render",
+      "group": "none",
+      "problemMatcher": []
+    },
+    {
+      "label": "Quarto Render Active File",
+      "type": "shell",
+      "command": "quarto render \"${file}\"",
+      "group": "none",
+      "problemMatcher": []
+    },
+    {
+      "label": "Quarto Publish",
+      "type": "shell",
+      "command": "quarto publish",
+      "group": "none",
+      "problemMatcher": []
+    },
+
+    // ── Git / hygiene ────────────────────────────────────────────────────────
+
+    {
+      "label": "Check nbstripout Status",
+      "type": "shell",
+      "command": "nbstripout --status",
+      "group": "none",
+      "problemMatcher": []
+    },
+
+    // ── Template ─────────────────────────────────────────────────────────────
+
+    {
+      "label": "Sync from Template",
+      "type": "shell",
+      "command": "git fetch template && git merge template/main --allow-unrelated-histories --no-commit",
+      "group": "none",
+      "problemMatcher": []
+    }
+
+  ],
+  "inputs": [
+    {
+      "id": "notebookName",
+      "type": "promptString",
+      "description": "Notebook filename (without .ipynb)"
+    },
+    {
+      "id": "templateChoice",
+      "type": "pickString",
+      "description": "Which notebook template?",
+      "options": [
+        "template",
+        "template_textbook",
+        "template_scratch"
+      ],
+      "default": "template"
+    }
+  ]
+}

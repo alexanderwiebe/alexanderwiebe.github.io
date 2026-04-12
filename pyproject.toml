@@ -1,0 +1,39 @@
+[project]
+name = "base-notebook"
+version = "0.1.0"
+
+dependencies = [
+    # jupyter / notebook
+    "jupyterlab",
+    "ipykernel",
+    "ipywidgets",
+    "python-dotenv",
+    # science / math
+    "numpy",
+    "pandas",
+    "matplotlib",
+    "seaborn",
+    "scipy",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff",
+    "nbqa",
+    "nbstripout",
+    "pre-commit",
+]
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = []
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["F401"]
+
+[tool.ruff.lint.per-file-ignores]
+"*.ipynb" = ["E402"]

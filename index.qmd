@@ -1,0 +1,9 @@
+---
+title: "Base Notebook"
+---
+
+A template for working with Jupyter notebooks in VS Code DevContainers.
+
+## Notebooks
+
+- [Init Notebook](notebooks/01_init_notebook.ipynb)

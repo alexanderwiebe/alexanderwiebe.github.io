@@ -1,0 +1,33 @@
+{
+  "name": "Base Notebook",
+  "build": {
+    "dockerfile": "../Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "ms-toolsai.jupyter-renderers",
+        "ms-toolsai.vscode-jupyter-cell-tags",
+        "charliermarsh.ruff",
+        "github.copilot-chat",
+        "quarto.quarto"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python3",
+        "python.terminal.activateEnvironment": true,
+        "jupyter.jupyterServerType": "local"
+      }
+    }
+  },
+  "postCreateCommand": "pip install '.[dev]' && pre-commit install && npm install -g @anthropic-ai/claude-code && echo 'alias claude=\"NODE_OPTIONS= claude\"' >> ~/.bashrc",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {}
+  },
+  "mounts": [
+    "source=${localEnv:HOME}/.claude,target=/home/vscode/.claude,type=bind,consistency=cached"
+  ],
+  "forwardPorts": [8888],
+  "remoteUser": "vscode"
+}

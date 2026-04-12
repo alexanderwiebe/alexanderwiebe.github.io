@@ -1,0 +1,8 @@
+{
+  "@jupyterlab/notebook-extension:tracker": {
+    "lineNumbering": true
+  },
+  "@jupyterlab/docmanager-extension:plugin": {
+    "autosaveInterval": 30
+  }
+}

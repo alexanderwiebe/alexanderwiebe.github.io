@@ -1,0 +1,18 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Base Notebook"
+  navbar:
+    left:
+      - href: notebooks/01_init_notebook.ipynb
+        text: "Init Notebook"
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    embed-resources: true
+
+jupyter: python3
