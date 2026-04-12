@@ -1,0 +1,86 @@
+[
+  {
+    "objectID": "notebooks/01_init_notebook.html",
+    "href": "notebooks/01_init_notebook.html",
+    "title": "Init Notebook",
+    "section": "",
+    "text": "Getting started\n\n# hello world\nvariable = 42\nprint(f\"Hello world, {variable}!\")"
+  },
+  {
+    "objectID": "notebooks/template_textbook.html",
+    "href": "notebooks/template_textbook.html",
+    "title": "Book Title — Chapter X: Chapter Name",
+    "section": "",
+    "text": "Brief description of what this notebook covers.\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n%matplotlib inline"
+  },
+  {
+    "objectID": "notebooks/template_textbook.html#theory-summary",
+    "href": "notebooks/template_textbook.html#theory-summary",
+    "title": "Book Title — Chapter X: Chapter Name",
+    "section": "Theory / Summary",
+    "text": "Theory / Summary\nKey concepts and definitions from the chapter."
+  },
+  {
+    "objectID": "notebooks/template_textbook.html#worked-example",
+    "href": "notebooks/template_textbook.html#worked-example",
+    "title": "Book Title — Chapter X: Chapter Name",
+    "section": "Worked Example",
+    "text": "Worked Example\nReproduce or extend an example from the book."
+  },
+  {
+    "objectID": "notebooks/template_textbook.html#exercises",
+    "href": "notebooks/template_textbook.html#exercises",
+    "title": "Book Title — Chapter X: Chapter Name",
+    "section": "Exercises",
+    "text": "Exercises\n\nExercise 1"
+  },
+  {
+    "objectID": "notebooks/template_textbook.html#notes-observations",
+    "href": "notebooks/template_textbook.html#notes-observations",
+    "title": "Book Title — Chapter X: Chapter Name",
+    "section": "Notes / Observations",
+    "text": "Notes / Observations\nPersonal observations, questions, or connections to other material."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Base Notebook",
+    "section": "",
+    "text": "A template for working with Jupyter notebooks in VS Code DevContainers."
+  },
+  {
+    "objectID": "index.html#notebooks",
+    "href": "index.html#notebooks",
+    "title": "Base Notebook",
+    "section": "Notebooks",
+    "text": "Notebooks\n\nInit Notebook"
+  },
+  {
+    "objectID": "notebooks/template.html",
+    "href": "notebooks/template.html",
+    "title": "Book Title — Chapter X: Chapter Name",
+    "section": "",
+    "text": "Brief description of what this notebook covers.\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n%matplotlib inline"
+  },
+  {
+    "objectID": "notebooks/template.html#notes",
+    "href": "notebooks/template.html#notes",
+    "title": "Book Title — Chapter X: Chapter Name",
+    "section": "Notes",
+    "text": "Notes\nKey concepts, summaries, and observations from the chapter."
+  },
+  {
+    "objectID": "notebooks/template.html#exercises",
+    "href": "notebooks/template.html#exercises",
+    "title": "Book Title — Chapter X: Chapter Name",
+    "section": "Exercises",
+    "text": "Exercises\n\nExercise 1"
+  },
+  {
+    "objectID": "notebooks/template_scratch.html",
+    "href": "notebooks/template_scratch.html",
+    "title": "Scratch: Title",
+    "section": "",
+    "text": "Date: YYYY-MM-DD\n\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\n%matplotlib inline"
+  }
+]
