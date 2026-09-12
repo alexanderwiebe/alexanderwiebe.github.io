@@ -9,9 +9,10 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Quarto CLI
-RUN curl -LO https://quarto.org/download/latest/quarto-linux-amd64.deb \
-    && dpkg -i quarto-linux-amd64.deb \
-    && rm quarto-linux-amd64.deb
+RUN ARCH=$(dpkg --print-architecture) \
+    && curl -LO "https://quarto.org/download/latest/quarto-linux-${ARCH}.deb" \
+    && dpkg -i "quarto-linux-${ARCH}.deb" \
+    && rm "quarto-linux-${ARCH}.deb"
 
 # Set up workspace
 WORKDIR /workspace
