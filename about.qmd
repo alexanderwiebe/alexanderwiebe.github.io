@@ -1,0 +1,48 @@
+---
+pagetitle: "About — AJ Wiebe"
+description: "Researcher, then developer, then technical leader, then researcher again — the thread connecting AJ Wiebe's career."
+---
+
+```{=html}
+<div class="wrap">
+  <div class="masthead">
+    <div class="masthead-row">
+      <div>
+        <h1 class="name">AJ WIEBE</h1>
+        <div class="role">Software Engineer &middot; Principal Consultant</div>
+      </div>
+      <div class="theme-toggle">
+        <button data-theme-btn="light" class="active">Light</button>
+        <span class="sep">/</span>
+        <button data-theme-btn="dark">Dark</button>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="/writing/">Writing</a>
+      <a href="/projects/">Projects</a>
+      <a href="/research.html">Research</a>
+      <a href="/about.html" class="active">About</a>
+    </nav>
+  </div>
+
+  <p class="dek">I write software, lead the people who write it, and study why ontologies and knowledge representation still matter to both.</p>
+
+  <div class="section-label">Researcher</div>
+  <p>I started in research, not industry. At the University of Regina I worked on industrial applications of AI &mdash; ontologies, knowledge engineering, software generated from a formal model of a problem and a formal model of the software meant to solve it. That became my thesis, <a href="/research.html">Ontology Driven Software Engineering Generator</a>, and two conference papers along the way.</p>
+  <p>Before the thesis: early jobs at SaskTel and the Canadian federal government, building geospatial tools and rich internet applications. Less relevant to what I do now, but it's where I learned to actually ship something.</p>
+
+  <div class="section-label">Developer</div>
+  <p>After the thesis, I spent over a decade writing software client-side &mdash; iQmetrix and HP Enterprise Services first, then eight years at Solvera Solutions, where I went from developer to team lead to a seat on the Application Development Council, interviewing the next generation of developers.</p>
+  <p>The scope kept expanding. First my own code. Then reviewing someone else's. Then setting the direction a whole team built in.</p>
+
+  <div class="section-label">Technical Leader</div>
+  <p>Since 2022 I've led Bitovi's engagement with a Fortune 500 financial services company &mdash; architecture, staffing, delivery, and technical leadership across the account. I started as its only consultant. I still write code.</p>
+  <p>Architecture stopped being a technical question and became an organizational one: how do you get developers you'll never personally meet to build things the same way.</p>
+
+  <div class="section-label">Researcher, Again</div>
+  <p>Modern AI reopened the questions I started with. Neurosymbolic AI, knowledge graphs, AI agents &mdash; these are the same problems from my thesis, with better tools than I had in 2016. I'm not affiliated with a university. This is independent research, done the way I do everything else: build something, see what breaks, write it down.</p>
+  <p>See <a href="/research.html">Research</a> for what that looks like right now, and <a href="/projects/">Projects</a> for what I'm building alongside it.</p>
+
+  <p class="muted" style="font-size:0.9375rem; margin-top:40px;">A shorter public career summary is on the <a href="/resume.html">résumé page</a>, or find the full history on <a href="https://www.linkedin.com/in/softwarebyaj">LinkedIn</a>.</p>
+</div>
+```

@@ -1,0 +1,44 @@
+---
+pagetitle: "aj-starter-gold — AJ Wiebe"
+description: "An Angular + NestJS starter demonstrating basic three-layer architecture for a demo project."
+---
+
+```{=html}
+<div class="wrap">
+  <div class="masthead">
+    <div class="masthead-row">
+      <div>
+        <h1 class="name">AJ WIEBE</h1>
+        <div class="role">Software Engineer &middot; Principal Consultant</div>
+      </div>
+      <div class="theme-toggle">
+        <button data-theme-btn="light" class="active">Light</button>
+        <span class="sep">/</span>
+        <button data-theme-btn="dark">Dark</button>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="/writing/">Writing</a>
+      <a href="/projects/" class="active">Projects</a>
+      <a href="/research.html">Research</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </div>
+
+  <div class="crumb"><a href="/projects/">Projects</a> / aj-starter-gold</div>
+  <h1 class="title">aj-starter-gold</h1>
+  <p class="dek">An Angular + NestJS starter demonstrating basic three-layer architecture for a demo project.</p>
+
+  <h2 class="h2">Why</h2>
+  <p>I wanted a working reference for the pattern I actually reach for &mdash; presentation, business logic, data &mdash; small enough to stand up for a demo or a teaching moment without re-explaining the architecture from a blank repo every time.</p>
+
+  <h2 class="h2">How it works</h2>
+  <p>Angular on the frontend, NestJS on the backend, with the three layers kept visibly separate rather than folded together for convenience.</p>
+
+  <h2 class="h2">What I learned</h2>
+  <p>A demo doesn't need much scaffolding to make the architecture legible; past a certain point, more scaffolding makes the demo about the scaffolding instead of the pattern.</p>
+
+  <h2 class="h2">Code</h2>
+  <p class="mono-link"><a href="https://github.com/alexanderwiebe/aj-starter-gold">github.com/alexanderwiebe/aj-starter-gold</a></p>
+</div>
+```

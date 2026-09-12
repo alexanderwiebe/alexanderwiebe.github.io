@@ -1,6 +1,6 @@
 ---
-pagetitle: "AJ Wiebe"
-description: "Software engineer and researcher. Ontologies, knowledge graphs, AI agents, and what I'm building now."
+pagetitle: "Projects — AJ Wiebe"
+description: "What AJ Wiebe builds and why — plus reading companions, worked examples proving he understood a book or paper."
 ---
 
 ```{=html}
@@ -19,19 +19,11 @@ description: "Software engineer and researcher. Ontologies, knowledge graphs, AI
     </div>
     <nav class="nav">
       <a href="/writing/">Writing</a>
-      <a href="/projects/">Projects</a>
+      <a href="/projects/" class="active">Projects</a>
       <a href="/research.html">Research</a>
       <a href="/about.html">About</a>
     </nav>
   </div>
-
-  <p>I started as a researcher, studying ontologies and industrial AI. Then I spent over a decade building software &mdash; first my own, then helping other developers, then teams, then departments.</p>
-  <p>I still write code and read papers.</p>
-
-  <div class="section-label">Recent Writing</div>
-  <p class="muted" style="font-style:italic;">Nothing published yet.</p>
-
-  <div class="section-label">Projects</div>
 
   <div class="project-row">
     <a class="row-title" href="/projects/research-knowledge-graph.html">Research Knowledge Graph</a>
@@ -48,6 +40,15 @@ description: "Software engineer and researcher. Ontologies, knowledge graphs, AI
   <div class="project-row">
     <a class="row-title" href="/projects/this-site.html">This Site</a>
     <p class="row-desc">Built from a written product spec, in stages, with an AI pair.</p>
+  </div>
+
+  <div class="section-label">Reading Companions</div>
+  <p class="section-sub" style="margin-top:-4px;">As I read a book or paper, I build the companion repo alongside it &mdash; worked examples, runnable explanation. This is proof I understood the material, not a claim that I did.</p>
+
+  <div class="companion-row">
+    <div class="companion-title">Learning From Data</div>
+    <p class="companion-desc">Notebook companion for the book.</p>
+    <a class="companion-link" href="https://github.com/alexanderwiebe/learning-from-data">github.com/alexanderwiebe/learning-from-data</a>
   </div>
 </div>
 ```

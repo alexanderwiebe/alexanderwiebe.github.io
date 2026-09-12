@@ -1,0 +1,70 @@
+---
+pagetitle: "Résumé — AJ Wiebe"
+description: "Public career summary for AJ Wiebe. Full history on LinkedIn."
+---
+
+```{=html}
+<div class="wrap">
+  <div class="masthead">
+    <div class="masthead-row">
+      <div>
+        <h1 class="name">AJ WIEBE</h1>
+        <div class="role">Software Engineer &middot; Principal Consultant</div>
+      </div>
+      <div class="theme-toggle">
+        <button data-theme-btn="light" class="active">Light</button>
+        <span class="sep">/</span>
+        <button data-theme-btn="dark">Dark</button>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="/writing/">Writing</a>
+      <a href="/projects/">Projects</a>
+      <a href="/research.html">Research</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </div>
+
+  <p>This is a short public summary. The full history, including earlier roles, is on <a href="https://www.linkedin.com/in/softwarebyaj">LinkedIn</a>. No private résumé is published on this site &mdash; that's provided directly during job applications.</p>
+
+  <div class="section-label">Experience</div>
+
+  <div class="pub-row">
+    <div class="pub-meta">2022&ndash;<br/>Present</div>
+    <div>
+      <div class="pub-title">Principal Consultant, Bitovi</div>
+      <div class="pub-authors">Lead Bitovi's engagement with a Fortune 500 financial services company &mdash; architecture, staffing, delivery, and technical leadership across the account. Started as its only consultant. Still write code.</div>
+    </div>
+  </div>
+  <div class="pub-row">
+    <div class="pub-meta">2013&ndash;<br/>2022</div>
+    <div>
+      <div class="pub-title">Consultant, Solvera Solutions</div>
+      <div class="pub-authors">Eight years consulting across enterprise software projects &mdash; developer, then team lead, then a seat on the Application Development Council.</div>
+    </div>
+  </div>
+  <div class="pub-row">
+    <div class="pub-meta">2010&ndash;<br/>2016</div>
+    <div>
+      <div class="pub-title">Researcher, University of Regina</div>
+      <div class="pub-authors">Industrial applications of AI, focused on ontologies and software engineering. Became my master's thesis and two conference papers &mdash; see <a href="/research.html">Research</a>.</div>
+    </div>
+  </div>
+  <div class="pub-row">
+    <div class="pub-meta">2007&ndash;<br/>2013</div>
+    <div>
+      <div class="pub-title">Early roles</div>
+      <div class="pub-authors">HP Enterprise Services, iQmetrix, SaskTel, and the Canadian federal government &mdash; SharePoint development, internal systems, and geospatial tooling.</div>
+    </div>
+  </div>
+
+  <div class="section-label">Education</div>
+  <div class="pub-row" style="border-bottom:none;">
+    <div class="pub-meta">2016</div>
+    <div>
+      <div class="pub-title">M.A.Sc., Software Systems Engineering</div>
+      <div class="pub-authors">University of Regina &middot; Thesis: Ontology Driven Software Engineering Generator</div>
+    </div>
+  </div>
+</div>
+```

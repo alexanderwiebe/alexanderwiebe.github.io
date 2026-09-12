@@ -1,0 +1,30 @@
+---
+pagetitle: "Writing — AJ Wiebe"
+description: "Research notes, technical explanations, and things learned while building something."
+---
+
+```{=html}
+<div class="wrap">
+  <div class="masthead">
+    <div class="masthead-row">
+      <div>
+        <h1 class="name">AJ WIEBE</h1>
+        <div class="role">Software Engineer &middot; Principal Consultant</div>
+      </div>
+      <div class="theme-toggle">
+        <button data-theme-btn="light" class="active">Light</button>
+        <span class="sep">/</span>
+        <button data-theme-btn="dark">Dark</button>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="/writing/" class="active">Writing</a>
+      <a href="/projects/">Projects</a>
+      <a href="/research.html">Research</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </div>
+
+  <p class="muted" style="font-style:italic;">Nothing published yet.</p>
+</div>
+```

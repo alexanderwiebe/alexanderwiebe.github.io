@@ -1,0 +1,44 @@
+---
+pagetitle: "Research Knowledge Graph — AJ Wiebe"
+description: "A personal, plugin-first knowledge graph for academic research — not owned by any single vendor."
+---
+
+```{=html}
+<div class="wrap">
+  <div class="masthead">
+    <div class="masthead-row">
+      <div>
+        <h1 class="name">AJ WIEBE</h1>
+        <div class="role">Software Engineer &middot; Principal Consultant</div>
+      </div>
+      <div class="theme-toggle">
+        <button data-theme-btn="light" class="active">Light</button>
+        <span class="sep">/</span>
+        <button data-theme-btn="dark">Dark</button>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="/writing/">Writing</a>
+      <a href="/projects/" class="active">Projects</a>
+      <a href="/research.html">Research</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </div>
+
+  <div class="crumb"><a href="/projects/">Projects</a> / Research Knowledge Graph</div>
+  <h1 class="title">Research Knowledge Graph</h1>
+  <p class="dek">A personal, plugin-first knowledge graph for academic research &mdash; not owned by any single vendor.</p>
+
+  <h2 class="h2">Why</h2>
+  <p>Every research tool I've used &mdash; reference managers, note apps, AI assistants &mdash; wants to own the graph. I wanted the graph to outlast all of them.</p>
+
+  <h2 class="h2">How it works</h2>
+  <p>The core defines capability contracts &mdash; a Research Library Connector, a Knowledge Store, a Scholarly Metadata Provider &mdash; and never talks to a specific product. Plugins implement the contracts. Swap a vendor, keep the graph.</p>
+
+  <h2 class="h2">What I learned</h2>
+  <p>Still in design &mdash; nothing shipped yet. The hard part isn't the graph itself, it's writing contracts stable enough that a plugin written in year one still works in year five.</p>
+
+  <h2 class="h2">Code</h2>
+  <p class="mono-link"><a href="https://github.com/alexanderwiebe/research-knowledge-graph">github.com/alexanderwiebe/research-knowledge-graph</a></p>
+</div>
+```

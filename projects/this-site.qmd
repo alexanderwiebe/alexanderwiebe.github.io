@@ -1,0 +1,50 @@
+---
+pagetitle: "This Site — AJ Wiebe"
+description: "Built from a written product spec, in stages, with an AI pair — the same discipline I'd want on a client engagement."
+---
+
+```{=html}
+<div class="wrap">
+  <div class="masthead">
+    <div class="masthead-row">
+      <div>
+        <h1 class="name">AJ WIEBE</h1>
+        <div class="role">Software Engineer &middot; Principal Consultant</div>
+      </div>
+      <div class="theme-toggle">
+        <button data-theme-btn="light" class="active">Light</button>
+        <span class="sep">/</span>
+        <button data-theme-btn="dark">Dark</button>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="/writing/">Writing</a>
+      <a href="/projects/" class="active">Projects</a>
+      <a href="/research.html">Research</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </div>
+
+  <div class="crumb"><a href="/projects/">Projects</a> / This Site</div>
+  <h1 class="title">This Site</h1>
+  <p class="dek">Built from a written product spec, in stages, with an AI pair &mdash; the same discipline I'd want on a client engagement.</p>
+
+  <h2 class="h2">Why</h2>
+  <p>Most personal sites get designed first and filled with words after. I wanted the reverse: a spec, then discovery, then structure, then voice, then design &mdash; each stage a doc, reviewed before the next one started.</p>
+
+  <h2 class="h2">How it works</h2>
+  <p>Discovery was pulled from actual GitHub activity and LinkedIn, not assumed. Each stage produced a document before any code. All of them are linked below, unedited from the working versions.</p>
+  <ul style="font-family:var(--mono); font-size:0.875rem; line-height:2; padding-left:0; list-style:none;">
+    <li><a href="https://github.com/alexanderwiebe/alexanderwiebe.github.io/blob/main/docs/discovery.md">docs/discovery.md</a> &mdash; GitHub/LinkedIn discovery, themes, privacy boundary</li>
+    <li><a href="https://github.com/alexanderwiebe/alexanderwiebe.github.io/blob/main/docs/ia.md">docs/ia.md</a> &mdash; sitemap and rough page content</li>
+    <li><a href="https://github.com/alexanderwiebe/alexanderwiebe.github.io/blob/main/docs/voice.md">docs/voice.md</a> &mdash; drafted copy for every page</li>
+    <li><a href="https://github.com/alexanderwiebe/alexanderwiebe.github.io/blob/main/docs/design.md">docs/design.md</a> &mdash; the visual system</li>
+  </ul>
+
+  <h2 class="h2">What I learned</h2>
+  <p class="muted" style="font-style:italic;">To be written once the build is further along &mdash; not pre-written on a project that isn't finished.</p>
+
+  <h2 class="h2">Code</h2>
+  <p class="mono-link"><a href="https://github.com/alexanderwiebe/alexanderwiebe.github.io">github.com/alexanderwiebe/alexanderwiebe.github.io</a></p>
+</div>
+```
