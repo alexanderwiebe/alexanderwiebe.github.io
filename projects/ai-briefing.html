@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Software engineer and researcher. Ontologies, knowledge graphs, AI agents, and what I’m building now.">
+<meta name="description" content="Twitter/X, filtered down to what actually matters, delivered to Telegram twice a day.">
 
-<title>AJ Wiebe</title>
+<title>AI Briefing — AJ Wiebe – AJ Wiebe</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -31,14 +31,14 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-html/tabby.min.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-html-640605f58ae58ee79329c070719e555b.min.css" rel="stylesheet" append-hash="true" data-mode="light">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-html-640605f58ae58ee79329c070719e555b.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script>
 (function () {
   try {
@@ -49,12 +49,12 @@ ul.task-list li input[type="checkbox"] {
 </script>
 
 
-<link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="AJ Wiebe">
-<meta property="og:description" content="Software engineer and researcher. Ontologies, knowledge graphs, AI agents, and what I’m building now.">
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="AI Briefing — AJ Wiebe">
+<meta property="og:description" content="Twitter/X, filtered down to what actually matters, delivered to Telegram twice a day.">
 <meta property="og:site_name" content="AJ Wiebe">
-<meta name="twitter:title" content="AJ Wiebe">
-<meta name="twitter:description" content="Software engineer and researcher. Ontologies, knowledge graphs, AI agents, and what I’m building now.">
+<meta name="twitter:title" content="AI Briefing — AJ Wiebe">
+<meta name="twitter:description" content="Twitter/X, filtered down to what actually matters, delivered to Telegram twice a day.">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -78,37 +78,81 @@ ul.task-list li input[type="checkbox"] {
       </div>
     </div>
     <nav class="nav">
-      <a href="./writing/">Writing</a>
-      <a href="./projects/">Projects</a>
-      <a href="./research.html">Research</a>
-      <a href="./about.html">About</a>
+      <a href="../writing/">Writing</a>
+      <a href="../projects/" class="active">Projects</a>
+      <a href="../research.html">Research</a>
+      <a href="../about.html">About</a>
     </nav>
   </div>
 
-  <p>I started as a researcher, studying ontologies and industrial AI. Then I spent over a decade building software — first my own, then helping other developers, then teams, then departments.</p>
-  <p>I still write code and read papers.</p>
+  <div class="crumb"><a href="../projects/">Projects</a> / AI Briefing</div>
+  <h1 class="title">AI Briefing</h1>
+  <p class="dek">Twitter/X, filtered down to what actually matters, delivered to Telegram twice a day.</p>
 
-  <div class="section-label">Recent Writing</div>
-  <p class="muted" style="font-style:italic;">Nothing published yet.</p>
+  <h2 class="h2">Why</h2>
+  <p>I was spending more time scrolling than learning. I wanted a system that reads everything so I don't have to, and only surfaces what's worth acting on.</p>
 
-  <div class="section-label">Projects</div>
+  <h2 class="h2">How it works</h2>
+  <p>Curated X lists feed through RSSHub, get deduplicated semantically, then get classified by Claude CLI into four buckets — act now, queue, inform, skip — weighted by a rolling 30-day credibility score per source. A weekly agent maps connections between the notes I save. Runs locally: Python, Redis, SQLite, Docker.</p>
 
-  <div class="project-row">
-    <a class="row-title" href="./projects/research-knowledge-graph.html">Research Knowledge Graph</a>
-    <p class="row-desc">A personal, plugin-first knowledge graph for academic research — not owned by any single vendor.</p>
-  </div>
-  <div class="project-row">
-    <a class="row-title" href="./projects/ai-briefing.html">AI Briefing</a>
-    <p class="row-desc">Twitter/X, filtered down to what actually matters, delivered to Telegram twice a day.</p>
-  </div>
-  <div class="project-row">
-    <a class="row-title" href="./projects/aj-starter-gold.html">aj-starter-gold</a>
-    <p class="row-desc">A type-safe, isomorphic TypeScript starter combining Angular and NestJS into one three-tier architecture.</p>
-  </div>
-  <div class="project-row">
-    <a class="row-title" href="./projects/this-site.html">This Site</a>
-    <p class="row-desc">Built from a written product spec, in stages, with an AI pair.</p>
-  </div>
+  <svg viewbox="0 0 700 300" style="width:100%; height:auto; margin:8px 0 32px;">
+    <g class="dbox">
+      <rect x="0" y="20" width="90" height="36"></rect>
+      <text class="dmono" x="45" y="42" text-anchor="middle">X LISTS</text>
+    </g>
+    <g class="dbox">
+      <rect x="125" y="20" width="90" height="36"></rect>
+      <text class="dmono" x="170" y="42" text-anchor="middle">RSSHUB</text>
+    </g>
+    <g class="dbox">
+      <rect x="250" y="20" width="90" height="36"></rect>
+      <text class="dmono" x="295" y="42" text-anchor="middle">DEDUP</text>
+    </g>
+    <g class="dbox">
+      <rect x="375" y="20" width="150" height="36"></rect>
+      <text class="dmono" x="450" y="35" text-anchor="middle">CLASSIFY</text>
+      <text class="dmono" x="450" y="48" text-anchor="middle" style="font-size:9px;">(CLAUDE CLI)</text>
+    </g>
+
+    <line class="darrow" x1="90" y1="38" x2="122" y2="38"></line>
+    <polygon class="darrowhead" points="125,38 119,34 119,42"></polygon>
+    <line class="darrow" x1="215" y1="38" x2="247" y2="38"></line>
+    <polygon class="darrowhead" points="250,38 244,34 244,42"></polygon>
+    <line class="darrow" x1="340" y1="38" x2="372" y2="38"></line>
+    <polygon class="darrowhead" points="375,38 369,34 369,42"></polygon>
+
+    <line class="darrow" x1="450" y1="56" x2="450" y2="107"></line>
+    <polygon class="darrowhead" points="450,110 446,104 454,104"></polygon>
+
+    <text class="dmono" x="450" y="104" text-anchor="middle" style="font-size:9px; fill:var(--ink-muted);">TRIAGE</text>
+    <rect class="dbox-rect" x="340" y="110" width="220" height="100"></rect>
+    <line class="ddivider" x1="450" y1="110" x2="450" y2="210"></line>
+    <line class="ddivider" x1="340" y1="160" x2="560" y2="160"></line>
+    <text class="dmono" x="395" y="139" text-anchor="middle">ACT NOW</text>
+    <text class="dmono" x="505" y="139" text-anchor="middle">QUEUE</text>
+    <text class="dmono" x="395" y="184" text-anchor="middle">INFORM</text>
+    <text class="dmono" x="505" y="184" text-anchor="middle">SKIP</text>
+
+    <line class="darrow" x1="450" y1="210" x2="450" y2="247"></line>
+    <polygon class="darrowhead" points="450,250 446,244 454,244"></polygon>
+
+    <g class="dbox">
+      <rect x="375" y="250" width="150" height="36"></rect>
+      <text class="dmono" x="450" y="272" text-anchor="middle">TELEGRAM</text>
+    </g>
+
+    <line class="darrow-dashed" x1="340" y1="160" x2="195" y2="160"></line>
+    <polygon class="darrowhead" points="190,160 196,156 196,164"></polygon>
+    <rect class="dbox-rect" x="15" y="135" width="175" height="50"></rect>
+    <text class="dmono" x="102" y="156" text-anchor="middle">WEEKLY AGENT</text>
+    <text class="dmono" x="102" y="171" text-anchor="middle">→ OBSIDIAN</text>
+  </svg>
+
+  <h2 class="h2">What I learned</h2>
+  <p>Four categories was the right number. Three collapses "important" into "urgent." Five is more than I'll ever triage consistently.</p>
+
+  <h2 class="h2">Code</h2>
+  <p class="mono-link"><a href="https://github.com/alexanderwiebe/ai-briefing">github.com/alexanderwiebe/ai-briefing</a></p>
 </div>
 
 

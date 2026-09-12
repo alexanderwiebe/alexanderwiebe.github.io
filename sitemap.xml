@@ -1,23 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://alexanderwiebe.github.io/notebooks/01_init_notebook.html</loc>
-    <lastmod>2026-04-12T03:49:21.369Z</lastmod>
+    <loc>https://systemsbyaj.com/writing/index.html</loc>
+    <lastmod>2026-09-12T21:36:10.062Z</lastmod>
   </url>
   <url>
-    <loc>https://alexanderwiebe.github.io/notebooks/template_textbook.html</loc>
-    <lastmod>2026-04-12T03:49:21.369Z</lastmod>
+    <loc>https://systemsbyaj.com/research.html</loc>
+    <lastmod>2026-09-12T21:36:10.062Z</lastmod>
   </url>
   <url>
-    <loc>https://alexanderwiebe.github.io/index.html</loc>
-    <lastmod>2026-04-12T03:49:21.369Z</lastmod>
+    <loc>https://systemsbyaj.com/projects/this-site.html</loc>
+    <lastmod>2026-09-12T21:36:10.062Z</lastmod>
   </url>
   <url>
-    <loc>https://alexanderwiebe.github.io/notebooks/template.html</loc>
-    <lastmod>2026-04-12T03:49:21.369Z</lastmod>
+    <loc>https://systemsbyaj.com/projects/aj-starter-gold.html</loc>
+    <lastmod>2026-09-12T21:36:10.062Z</lastmod>
   </url>
   <url>
-    <loc>https://alexanderwiebe.github.io/notebooks/template_scratch.html</loc>
-    <lastmod>2026-04-12T03:49:21.369Z</lastmod>
+    <loc>https://systemsbyaj.com/index.html</loc>
+    <lastmod>2026-09-12T21:36:10.061Z</lastmod>
+  </url>
+  <url>
+    <loc>https://systemsbyaj.com/about.html</loc>
+    <lastmod>2026-09-12T21:36:10.061Z</lastmod>
+  </url>
+  <url>
+    <loc>https://systemsbyaj.com/projects/index.html</loc>
+    <lastmod>2026-09-12T21:36:10.062Z</lastmod>
+  </url>
+  <url>
+    <loc>https://systemsbyaj.com/projects/ai-briefing.html</loc>
+    <lastmod>2026-09-12T21:36:10.062Z</lastmod>
+  </url>
+  <url>
+    <loc>https://systemsbyaj.com/projects/research-knowledge-graph.html</loc>
+    <lastmod>2026-09-12T21:36:10.062Z</lastmod>
+  </url>
+  <url>
+    <loc>https://systemsbyaj.com/resume.html</loc>
+    <lastmod>2026-09-12T21:36:10.062Z</lastmod>
   </url>
 </urlset>

@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Software engineer and researcher. Ontologies, knowledge graphs, AI agents, and what I’m building now.">
+<meta name="description" content="A personal, plugin-first knowledge graph for academic research — not owned by any single vendor.">
 
-<title>AJ Wiebe</title>
+<title>Research Knowledge Graph — AJ Wiebe – AJ Wiebe</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -31,14 +31,14 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-html/tabby.min.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-html-640605f58ae58ee79329c070719e555b.min.css" rel="stylesheet" append-hash="true" data-mode="light">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-html-640605f58ae58ee79329c070719e555b.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script>
 (function () {
   try {
@@ -49,12 +49,12 @@ ul.task-list li input[type="checkbox"] {
 </script>
 
 
-<link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="AJ Wiebe">
-<meta property="og:description" content="Software engineer and researcher. Ontologies, knowledge graphs, AI agents, and what I’m building now.">
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="Research Knowledge Graph — AJ Wiebe">
+<meta property="og:description" content="A personal, plugin-first knowledge graph for academic research — not owned by any single vendor.">
 <meta property="og:site_name" content="AJ Wiebe">
-<meta name="twitter:title" content="AJ Wiebe">
-<meta name="twitter:description" content="Software engineer and researcher. Ontologies, knowledge graphs, AI agents, and what I’m building now.">
+<meta name="twitter:title" content="Research Knowledge Graph — AJ Wiebe">
+<meta name="twitter:description" content="A personal, plugin-first knowledge graph for academic research — not owned by any single vendor.">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -78,37 +78,28 @@ ul.task-list li input[type="checkbox"] {
       </div>
     </div>
     <nav class="nav">
-      <a href="./writing/">Writing</a>
-      <a href="./projects/">Projects</a>
-      <a href="./research.html">Research</a>
-      <a href="./about.html">About</a>
+      <a href="../writing/">Writing</a>
+      <a href="../projects/" class="active">Projects</a>
+      <a href="../research.html">Research</a>
+      <a href="../about.html">About</a>
     </nav>
   </div>
 
-  <p>I started as a researcher, studying ontologies and industrial AI. Then I spent over a decade building software — first my own, then helping other developers, then teams, then departments.</p>
-  <p>I still write code and read papers.</p>
+  <div class="crumb"><a href="../projects/">Projects</a> / Research Knowledge Graph</div>
+  <h1 class="title">Research Knowledge Graph</h1>
+  <p class="dek">A personal, plugin-first knowledge graph for academic research — not owned by any single vendor.</p>
 
-  <div class="section-label">Recent Writing</div>
-  <p class="muted" style="font-style:italic;">Nothing published yet.</p>
+  <h2 class="h2">Why</h2>
+  <p>Every research tool I've used — reference managers, note apps, AI assistants — wants to own the graph. I wanted the graph to outlast all of them.</p>
 
-  <div class="section-label">Projects</div>
+  <h2 class="h2">How it works</h2>
+  <p>The core defines capability contracts — a Research Library Connector, a Knowledge Store, a Scholarly Metadata Provider — and never talks to a specific product. Plugins implement the contracts. Swap a vendor, keep the graph.</p>
 
-  <div class="project-row">
-    <a class="row-title" href="./projects/research-knowledge-graph.html">Research Knowledge Graph</a>
-    <p class="row-desc">A personal, plugin-first knowledge graph for academic research — not owned by any single vendor.</p>
-  </div>
-  <div class="project-row">
-    <a class="row-title" href="./projects/ai-briefing.html">AI Briefing</a>
-    <p class="row-desc">Twitter/X, filtered down to what actually matters, delivered to Telegram twice a day.</p>
-  </div>
-  <div class="project-row">
-    <a class="row-title" href="./projects/aj-starter-gold.html">aj-starter-gold</a>
-    <p class="row-desc">A type-safe, isomorphic TypeScript starter combining Angular and NestJS into one three-tier architecture.</p>
-  </div>
-  <div class="project-row">
-    <a class="row-title" href="./projects/this-site.html">This Site</a>
-    <p class="row-desc">Built from a written product spec, in stages, with an AI pair.</p>
-  </div>
+  <h2 class="h2">What I learned</h2>
+  <p>Still in design — nothing shipped yet. The hard part isn't the graph itself, it's writing contracts stable enough that a plugin written in year one still works in year five.</p>
+
+  <h2 class="h2">Code</h2>
+  <p class="mono-link"><a href="https://github.com/alexanderwiebe/research-knowledge-graph">github.com/alexanderwiebe/research-knowledge-graph</a></p>
 </div>
 
 
