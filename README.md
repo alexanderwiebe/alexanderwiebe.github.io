@@ -1,45 +1,28 @@
-# Template for jupyter notebooks
+# systemsbyaj.com
 
-VS Code DevContainers for working with jupyter notebooks
+AJ Wiebe's personal site. Built from a written product spec, in
+stages — discovery, information architecture, voice, design,
+implementation — each stage documented before the next one started.
+See `docs/discovery.md`, `docs/ia.md`, `docs/voice.md`, and
+`docs/design.md` for that process.
 
-## 🚀 Features
-- Local or GitHub Codespaces support
-- VS Code + Copilot Chat integration
+Static site, built with [Quarto](https://quarto.org). Content lives in
+`.qmd` files at the repo root and under `writing/` and `projects/`.
+Design tokens and layout are in `styles.css`.
 
-## 🛠️ Getting Started
+## Local development
 
-1. Open this folder in **VS Code**
-2. If prompted, reopen in container
-3. Run `jupyter lab` inside the terminal
-4. Explore `notebooks/`
-
-## 📄 Quarto
-
-[Quarto](https://quarto.org) is pre-installed in the dev container and renders notebooks to HTML, PDF, and more.
-
-**VS Code tasks** (via `Tasks: Run Task`):
-
-| Task | Description |
-|------|-------------|
-| Quarto Preview | Live preview at `localhost:4848` |
-| Quarto Render | Render all notebooks to `_site/` |
-| Quarto Render Active File | Render only the open file |
-| Quarto Publish | Publish to Quarto Pub / GitHub Pages |
-
-**CLI equivalents:**
+This repo's devcontainer has Quarto and a Python/Jupyter environment
+pre-installed (the Jupyter toolchain is there for future notebook-based
+posts, not required for the current pages).
 
 ```bash
-quarto preview                  # live preview
-quarto render                   # render all to _site/
-quarto render notebooks/01_init_notebook.ipynb
-quarto publish quarto-pub       # publish to quartopub.com
+quarto preview                  # live preview at localhost
+quarto render                   # render the site to _site/
 ```
 
-Project output settings are in `_quarto.yml`.
+## Deployment
 
-## 🔑 API Keys
-
-Set your OpenAI key (if using) as an environment variable:
-
-```bash
-export OPENAI_API_KEY="your-key"
+`.github/workflows/publish.yml` renders and publishes to the
+`gh-pages` branch on every push to `main`. The `CNAME` file points
+GitHub Pages at `systemsbyaj.com`.
