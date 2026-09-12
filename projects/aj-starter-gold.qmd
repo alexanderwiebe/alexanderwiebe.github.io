@@ -1,6 +1,6 @@
 ---
 pagetitle: "aj-starter-gold — AJ Wiebe"
-description: "An Angular + NestJS starter demonstrating basic three-layer architecture for a demo project."
+description: "A type-safe, isomorphic TypeScript starter combining Angular and NestJS into one three-tier architecture."
 ---
 
 ```{=html}
@@ -27,16 +27,16 @@ description: "An Angular + NestJS starter demonstrating basic three-layer archit
 
   <div class="crumb"><a href="/projects/">Projects</a> / aj-starter-gold</div>
   <h1 class="title">aj-starter-gold</h1>
-  <p class="dek">An Angular + NestJS starter demonstrating basic three-layer architecture for a demo project.</p>
+  <p class="dek">A type-safe, isomorphic TypeScript starter combining Angular and NestJS into one three-tier architecture.</p>
 
   <h2 class="h2">Why</h2>
-  <p>I wanted a working reference for the pattern I actually reach for &mdash; presentation, business logic, data &mdash; small enough to stand up for a demo or a teaching moment without re-explaining the architecture from a blank repo every time.</p>
+  <p>I wanted a working reference for combining Angular and NestJS into a single three-tier system that shares real types across the client and server, instead of maintaining the same model twice in two languages or two disconnected TypeScript codebases.</p>
 
   <h2 class="h2">How it works</h2>
-  <p>Angular on the frontend, NestJS on the backend, with the three layers kept visibly separate rather than folded together for convenience.</p>
+  <p>Angular on the frontend, NestJS on the backend, both TypeScript, with a shared type layer between them so a model change is a compiler error on both ends, not a runtime surprise on one.</p>
 
   <h2 class="h2">What I learned</h2>
-  <p>A demo doesn't need much scaffolding to make the architecture legible; past a certain point, more scaffolding makes the demo about the scaffolding instead of the pattern.</p>
+  <p>The hard part isn't the code, it's the configuration &mdash; getting the build tooling, module boundaries, and shared types to agree so the two halves behave like one system instead of two projects glued together.</p>
 
   <h2 class="h2">Code</h2>
   <p class="mono-link"><a href="https://github.com/alexanderwiebe/aj-starter-gold">github.com/alexanderwiebe/aj-starter-gold</a></p>

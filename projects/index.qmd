@@ -35,7 +35,7 @@ description: "What AJ Wiebe builds and why — plus reading companions, worked e
   </div>
   <div class="project-row">
     <a class="row-title" href="/projects/aj-starter-gold.html">aj-starter-gold</a>
-    <p class="row-desc">An Angular + NestJS starter demonstrating basic three-layer architecture for a demo project.</p>
+    <p class="row-desc">A type-safe, isomorphic TypeScript starter combining Angular and NestJS into one three-tier architecture.</p>
   </div>
   <div class="project-row">
     <a class="row-title" href="/projects/this-site.html">This Site</a>
@@ -49,6 +49,11 @@ description: "What AJ Wiebe builds and why — plus reading companions, worked e
     <div class="companion-title">Learning From Data</div>
     <p class="companion-desc">Notebook companion for the book.</p>
     <a class="companion-link" href="https://github.com/alexanderwiebe/learning-from-data">github.com/alexanderwiebe/learning-from-data</a>
+  </div>
+  <div class="companion-row">
+    <div class="companion-title">Anthropic Learning</div>
+    <p class="companion-desc">Notebook companion for learning the Anthropic/Claude API and tooling.</p>
+    <a class="companion-link" href="https://github.com/alexanderwiebe/anthropic-learning">github.com/alexanderwiebe/anthropic-learning</a>
   </div>
 </div>
 ```

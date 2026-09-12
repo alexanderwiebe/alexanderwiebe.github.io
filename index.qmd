@@ -43,7 +43,7 @@ description: "Software engineer and researcher. Ontologies, knowledge graphs, AI
   </div>
   <div class="project-row">
     <a class="row-title" href="/projects/aj-starter-gold.html">aj-starter-gold</a>
-    <p class="row-desc">An Angular + NestJS starter demonstrating basic three-layer architecture for a demo project.</p>
+    <p class="row-desc">A type-safe, isomorphic TypeScript starter combining Angular and NestJS into one three-tier architecture.</p>
   </div>
   <div class="project-row">
     <a class="row-title" href="/projects/this-site.html">This Site</a>

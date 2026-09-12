@@ -56,8 +56,12 @@ hosting mechanism itself in Stage 5.
    (12-tier AI/ML curriculum: math foundations → landmark papers →
    applied practice), `learning-from-data`, `anthropic-learning`. These
    belong under Research, not Projects — no code artifact to point to.
-5. **Self-hosted infra** — `docker` (self-hosted Compose stacks),
-   `homelab-todo-bot`. Content unverified (see below).
+5. **Self-hosted infra / AI agents** — `docker` (self-hosted Compose
+   stacks, including infra for the `ai-briefing` pipeline), and
+   `homelab-todo-bot`, a Telegram bot running Claude CLI in
+   plan/revise/execute phases with human approval gates. Both verified
+   (see "Previously unverified repos" below); neither is on the
+   shortlist yet.
 
 Not investigated further: `number-munchers` (no description, low
 relevance), forks (`okta-jwt-verifier-js`, `ngx-charts` — not AJ's
@@ -66,13 +70,11 @@ work, excluded per brief).
 ## Verification gaps
 
 Four repos returned no README on `main` or `master` via the public API:
-`homelab-todo-bot`, `docker`, `svg-node-editor`, `aj-starter-gold`. This
-means one of: private repo, empty README, non-standard default branch,
-or README elsewhere in the tree. Not guessed at — needs AJ to confirm
-before any of these are considered for the shortlist. `svg-node-editor`
-in particular is worth checking directly: the name suggests a graph
-visualization tool, which would strengthen the knowledge-graph theme
-if so.
+`homelab-todo-bot`, `docker`, `svg-node-editor`, `aj-starter-gold` — all
+four turned out to be public with real content, just using `CLAUDE.md`
+instead of `README.md` (or, for `aj-starter-gold`, confirmed directly by
+AJ). See "Previously unverified repos — resolved" and the shortlist
+above for what each turned out to be.
 
 `aj-agentic-aware` has a README but it's template placeholder text
 only ("[Add setup instructions here]") — not presentable.
@@ -93,9 +95,11 @@ recruiter skimming for keywords.
    Real architecture, real tradeoffs (four-quadrant triage model,
    credibility tracking), currently running.
 3. **aj-starter-gold** (Angular/NestJS starter kit) — swapped in for
-   tmux-setup per AJ. Ties directly to real professional expertise
-   (micro-frontend architecture, design systems, Angular direction).
-   Public and confirmed: https://github.com/alexanderwiebe/aj-starter-gold
+   tmux-setup per AJ. A type-safe, isomorphic TypeScript starter
+   combining Angular and NestJS into one three-tier architecture with
+   shared types across client and server; the real lesson is that the
+   hard part is configuration (build tooling, module boundaries), not
+   code. Public and confirmed: https://github.com/alexanderwiebe/aj-starter-gold
 4. **This site** — spec-first (the product brief), staged build
    (discovery → IA → voice → design → implementation, each committed
    separately), built with an AI pair rather than ad hoc. The feature
@@ -112,8 +116,8 @@ comprehension, not a résumé-padding claim. First confirmed entry:
 `learning-from-data` (notebook companion for *Learning From Data*).
 https://github.com/alexanderwiebe/learning-from-data
 
-`anthropic-learning` is a plausible second entry (Jupyter Notebook, no
-GitHub description) but unconfirmed — verify before listing.
+`anthropic-learning` confirmed as the second entry (AJ, 2026-09-12).
+https://github.com/alexanderwiebe/anthropic-learning
 
 This pattern is the strongest practical payoff of the Quarto decision:
 these are naturally executable-notebook posts, which is exactly what
@@ -122,16 +126,38 @@ Projects page (a separate, growing list — not folded into the 4-item
 shortlist, since the genre is different: demonstrating understanding
 of someone else's work vs. building an original thing).
 
-## Private repos — unresolved, sort later
+## Previously "unverified" repos — resolved 2026-09-12
 
-These returned no README via the public GitHub API (private, empty, or
-non-standard default branch — undetermined which). Not on the shortlist
-until AJ confirms content and visibility:
+None of these were actually private — the public README fetch just
+missed (wrong assumed filename/branch; all three use `CLAUDE.md`
+instead of `README.md`, no `README.md` at all). Verified via GitHub API
++ raw `CLAUDE.md`. None are on the project shortlist (still 4 items,
+confirmed) — these are findings to report, not additions to make
+unilaterally:
 
-- `homelab-todo-bot`
-- `docker`
-- `svg-node-editor` — name suggests a graph visualization tool, which
-  would strengthen the knowledge-graph theme if confirmed relevant.
+- **`docker`** — self-hosted Docker Compose stacks (`core`, `otel`,
+  `zotero-ingest`). The `core` stack's architecture diagram documents
+  data flow into the `ai-briefing` pipeline, and `zotero-ingest`
+  plausibly feeds the Research Knowledge Graph (Zotero is a reference
+  manager). Infra supporting two shortlisted projects, not a project
+  in its own right — worth a mention inside AI Briefing's page if AJ
+  wants, not a 5th Projects entry.
+- **`homelab-todo-bot`** — a real, well-defined AI agent project: a
+  Telegram bot managing homelab tasks stored in an Obsidian vault,
+  using the Claude CLI in plan/revise/execute phases with a human
+  approval gate before any action executes. Genuinely fits the "AI
+  agents" theme as well as AI Briefing does. Candidate for a future
+  5th project if AJ wants to expand the shortlist — not added without
+  his say-so.
+  https://github.com/alexanderwiebe/homelab-todo-bot
+- **`svg-node-editor`** — actually named "AI Document": an AI-powered
+  document editor monorepo, Angular 21 + NestJS 11 + Bun workspaces,
+  DDD frontend with NgRx SignalStore. My earlier guess ("graph
+  visualization tool," from the repo name alone) was wrong — exactly
+  why the brief says not to write descriptions from names. Thematically
+  close to aj-starter-gold (same Angular+NestJS pattern, more fully
+  realized) — also a candidate for later, not added now.
+  https://github.com/alexanderwiebe/svg-node-editor
 
 ## Career timeline (public, LinkedIn-sourced — safe to quote/reuse)
 
@@ -236,9 +262,10 @@ Unchanged from the brief:
 ## Open decisions for AJ before Stage 2 (IA)
 
 1. ~~Confirm or revise the project shortlist.~~ Done — see above.
-2. Resolve the private-repos list (`homelab-todo-bot`, `docker`,
-   `svg-node-editor`) — visibility and content, when convenient. Not
-   blocking.
+2. ~~Resolve the private-repos list.~~ Done — none were private; see
+   "Previously unverified repos — resolved" above. `homelab-todo-bot`
+   and `svg-node-editor` are candidates for a future shortlist
+   expansion, not added without AJ's say-so.
 3. ~~Career timeline.~~ Done — LinkedIn Experience section supplied.
    Optional, not blocking: LinkedIn About blurb / posts, if any should
    seed Writing.
