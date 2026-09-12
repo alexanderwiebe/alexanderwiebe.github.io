@@ -1,18 +1,25 @@
 project:
   type: website
   output-dir: _site
+  render:
+    - "*"
+    - "!notebooks/**"
+    - "!docs/**"
 
 website:
-  title: "Base Notebook"
-  navbar:
-    left:
-      - href: notebooks/01_init_notebook.ipynb
-        text: "Init Notebook"
+  title: "AJ Wiebe"
+  site-url: "https://systemsbyaj.com"
+  description: "Software engineer and researcher. Ontologies, knowledge graphs, AI agents, and what I'm building now."
+  open-graph: true
+  twitter-card: true
+  page-navigation: false
 
 format:
   html:
-    theme: cosmo
-    toc: true
-    embed-resources: true
-
-jupyter: python3
+    theme: none
+    css: styles.css
+    toc: false
+    anchor-sections: false
+    title-block-banner: false
+    include-in-header: _includes/theme-init.html
+    include-after-body: _includes/theme-toggle.html

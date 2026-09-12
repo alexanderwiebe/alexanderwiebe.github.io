@@ -1,0 +1,21 @@
+<script>
+(function () {
+  function sync() {
+    var theme = document.documentElement.getAttribute('data-theme') || 'light';
+    document.querySelectorAll('[data-theme-btn]').forEach(function (btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-theme-btn') === theme);
+    });
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-theme-btn]');
+    if (!btn) return;
+    var next = btn.getAttribute('data-theme-btn');
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('theme', next);
+    } catch (e) {}
+    sync();
+  });
+  sync();
+})();
+</script>
