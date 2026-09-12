@@ -177,11 +177,12 @@ starting 2007) — optional context for About, not required.
   Writing or About from them — not required to proceed to Stage 2.
 - Private résumé reviewed directly (PDF, 2026 version) for career
   timeline and thesis/publication details only. It names the actual
-  client (Moody's Investors Service) and employer (Bitovi), plus
-  specific figures (revenue growth, consultant headcount, project/dev
-  counts, component counts). **None of this goes on the public site.**
-  The boundary holds exactly as the brief states: "Fortune 500
-  financial services company," no name, no metrics.
+  client and employer (Bitovi), plus specific figures (revenue growth,
+  consultant headcount, project/dev counts, component counts). **None
+  of this goes on the public site — including the client's name itself,
+  deliberately not repeated in this document.** The boundary holds
+  exactly as the brief states: "Fortune 500 financial services
+  company," no name, no metrics.
 - Career timeline extracted from the resume (safe, structural facts
   only — titles and date ranges, no client names) confirms the brief's
   "Core story" arc almost exactly:

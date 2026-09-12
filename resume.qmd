@@ -33,7 +33,7 @@ description: "Public career summary for AJ Wiebe. Full history on LinkedIn."
     <div class="pub-meta">2022&ndash;<br/>Present</div>
     <div>
       <div class="pub-title">Principal Consultant, Bitovi</div>
-      <div class="pub-authors">Lead Bitovi's engagement with a Fortune 500 financial services company &mdash; architecture, staffing, delivery, and technical leadership across the account. Started as its only consultant. Still write code.</div>
+      <div class="pub-authors">Architecture, staffing, delivery, and technical leadership across a Fortune 500 financial services engagement. Started as the account's only consultant.</div>
     </div>
   </div>
   <div class="pub-row">
