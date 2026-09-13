@@ -43,6 +43,6 @@ description: "Researcher, then developer, then technical leader, then researcher
   <p>Modern AI reopened the questions I started with. Neurosymbolic AI, knowledge graphs, AI agents &mdash; these are the same problems from my thesis, with better tools than I had in 2016. I'm not affiliated with a university. This is independent research, done the way I do everything else: build something, see what breaks, write it down.</p>
   <p>See <a href="/research.html">Research</a> for what that looks like right now, and <a href="/projects/">Projects</a> for what I'm building alongside it.</p>
 
-  <p class="muted" style="font-size:0.9375rem; margin-top:40px;">A shorter public career summary is on the <a href="/resume.html">résumé page</a>, or find the full history on <a href="https://www.linkedin.com/in/softwarebyaj">LinkedIn</a>.</p>
+  <p class="muted" style="font-size:0.9375rem; margin-top:40px;">A shorter public career summary can be found on <a href="https://www.linkedin.com/in/softwarebyaj">LinkedIn</a>.</p>
 </div>
 ```
