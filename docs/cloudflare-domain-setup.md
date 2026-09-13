@@ -17,30 +17,46 @@ not part of "how the site was built").
   domain outside of the `CNAME` file already being present in the
   deployed output.
 
-## The constraint that shapes both options
+## Outstanding — what's left to do
 
-Once a `CNAME` file is present in the published output and GitHub
-detects `systemsbyaj.com` as the repo's custom domain, GitHub Pages
+Nothing in "The plan" below has been started. In order:
+
+- [ ] Add `systemsbyaj.com` as a site in Cloudflare; note the two
+      nameservers it assigns.
+- [ ] At the domain registrar, point `systemsbyaj.com`'s nameservers at
+      those two Cloudflare nameservers. (Propagation: up to a few
+      hours.)
+- [ ] In Cloudflare DNS, add the four apex `A` records for
+      `systemsbyaj.com` → `185.199.108.153`, `185.199.109.153`,
+      `185.199.110.153`, `185.199.111.153`.
+- [ ] In Cloudflare DNS, add the `www` `CNAME` record →
+      `alexanderwiebe.github.io`.
+- [ ] Set all five of those records to **DNS only** (grey cloud, not
+      proxied).
+- [ ] In the GitHub repo Settings → Pages, confirm `systemsbyaj.com`
+      shows as the custom domain.
+- [ ] Once available, check "Enforce HTTPS" in Settings → Pages
+      (GitHub needs up to ~24h after DNS propagates to issue the
+      certificate).
+
+## The goal
+
+Keep GitHub Pages as the host — no second build pipeline — with
+`systemsbyaj.com` as the domain people actually see. Once a `CNAME`
+file is present in the published output and GitHub detects
+`systemsbyaj.com` as the repo's custom domain, GitHub Pages
 **automatically redirects** requests for `alexanderwiebe.github.io` to
-`systemsbyaj.com`. There is no setting to keep both simultaneously live
-through one Pages deployment — this is standard GitHub behavior, not a
-misconfiguration to fix.
+`systemsbyaj.com`. That's not a misconfiguration to work around — it's
+exactly what "one canonical site, old `.github.io` links still
+resolve" requires, and it's the outcome wanted here.
 
-That means "both domains live" has two genuinely different meanings,
-and they need different setups:
+(The alternative — both domains independently serving content, with no
+redirect — would need a second, separate hosting target for
+`systemsbyaj.com`, e.g. Cloudflare Pages, running in parallel with
+GitHub's build. That's more infrastructure for no benefit here, so it's
+not the plan; see "Alternative not chosen" below if that ever changes.)
 
-- **A. One canonical site, old links still resolve.** `systemsbyaj.com`
-  is the real site; `alexanderwiebe.github.io` forwards to it. Simple,
-  standard, no SEO downside (search engines follow the redirect and
-  index one URL).
-- **B. Both domains independently serve content, no redirect.** Needs a
-  second, separate hosting target for `systemsbyaj.com` — Cloudflare
-  Pages, in this case — so GitHub Pages never learns about the custom
-  domain and keeps serving `alexanderwiebe.github.io` untouched.
-
-Pick one before starting; the setup steps diverge immediately.
-
-## Option A — Cloudflare as DNS only, accept the redirect
+## The plan — Cloudflare as DNS only, accept the redirect
 
 1. In Cloudflare, add `systemsbyaj.com` as a site (Cloudflare will scan
    existing DNS, then give you two nameservers).
@@ -64,14 +80,19 @@ Pick one before starting; the setup steps diverge immediately.
    is available (GitHub needs to issue a certificate first, which can
    take up to ~24h after DNS propagates).
 5. Done. `systemsbyaj.com` is canonical; `alexanderwiebe.github.io`
-   redirects to it automatically.
+   redirects to it automatically. This is 15 minutes of DNS records and
+   a checkbox — no second build pipeline to babysit.
 
-## Option B — Cloudflare Pages as a second, independent host
+## Alternative not chosen — Cloudflare Pages as a second, independent host
 
-This keeps `alexanderwiebe.github.io` serving on its own, with
-`systemsbyaj.com` served entirely by Cloudflare Pages instead of GitHub
-Pages. GitHub never learns about the custom domain, so no redirect
-happens.
+Recorded for reference in case the goal changes later (e.g. wanting
+`alexanderwiebe.github.io` to keep serving content instead of
+redirecting). This would keep `alexanderwiebe.github.io` serving on its
+own, with `systemsbyaj.com` served entirely by Cloudflare Pages instead
+of GitHub Pages — a second, independent deploy pipeline running
+alongside GitHub's, for a payoff (both domains truly live, no redirect)
+that only matters if the `.github.io` link is already circulating
+somewhere.
 
 1. **Remove `CNAME` from the repo** (or at minimum, make sure GitHub
    Pages' Settings → Pages does *not* have a custom domain configured).
@@ -94,20 +115,6 @@ happens.
 4. Result: `systemsbyaj.com` → Cloudflare Pages, `alexanderwiebe.github.io`
    → GitHub Pages, both live, both serving the same content from
    independent builds of the same repo.
-5. Add a `rel="canonical"` strategy if this bothers you for SEO — two
-   indexable domains with identical content can dilute search ranking
-   unless one declares itself canonical. That partially undercuts "both
-   fully live" as a goal, so decide if it matters before setting it up;
-   if it does, canonical tags would point at `systemsbyaj.com` from
-   both deployments, and `alexanderwiebe.github.io` stays reachable but
-   not preferred by search engines — still genuinely live for anyone
-   with the link, just not the one Google shows.
-
-## Recommendation, non-binding
-
-Option A is a few DNS records and a checkbox — 15 minutes, no build
-pipeline to babysit. Option B is a second, independent deploy pipeline
-you now maintain in parallel with GitHub's, for a payoff (both domains
-truly live) that mostly matters if the `.github.io` link is already
-circulating somewhere and you don't want it to redirect. Worth checking
-whether that's actually true before building the second pipeline.
+5. Would need a `rel="canonical"` strategy for SEO — two indexable
+   domains with identical content can dilute search ranking unless one
+   declares itself canonical.
