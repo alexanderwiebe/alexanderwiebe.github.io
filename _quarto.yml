@@ -22,4 +22,6 @@ format:
     anchor-sections: false
     title-block-banner: false
     include-in-header: _includes/theme-init.html
-    include-after-body: _includes/theme-toggle.html
+    include-after-body:
+      - _includes/theme-toggle.html
+      - _includes/splash.html
