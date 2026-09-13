@@ -1,0 +1,32 @@
+<style>
+.site-footer {
+  max-width: 700px;
+  margin: 64px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-muted);
+}
+.site-footer a { color: var(--ink-muted); }
+.site-footer a:hover { color: var(--accent); }
+</style>
+
+<footer class="site-footer">
+  <span id="site-footer-copyright">&copy; AJ Wiebe</span>
+  <a href="https://github.com/alexanderwiebe/alexanderwiebe.github.io">source on github</a>
+</footer>
+
+<script>
+(function () {
+  var el = document.getElementById("site-footer-copyright");
+  if (!el) return;
+  el.textContent = "© " + new Date().getFullYear() + " AJ Wiebe";
+})();
+</script>

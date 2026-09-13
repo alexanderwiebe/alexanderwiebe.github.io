@@ -25,3 +25,4 @@ format:
     include-after-body:
       - _includes/theme-toggle.html
       - _includes/splash.html
+      - _includes/footer.html
