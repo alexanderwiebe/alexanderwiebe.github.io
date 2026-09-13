@@ -95,7 +95,7 @@
     {
       "label": "Quarto Preview",
       "type": "shell",
-      "command": "quarto preview",
+      "command": "NODE_OPTIONS= quarto preview",
       "group": "none",
       "isBackground": true,
       "problemMatcher": []
@@ -103,21 +103,21 @@
     {
       "label": "Quarto Render",
       "type": "shell",
-      "command": "quarto render",
+      "command": "NODE_OPTIONS= quarto render",
       "group": "none",
       "problemMatcher": []
     },
     {
       "label": "Quarto Render Active File",
       "type": "shell",
-      "command": "quarto render \"${file}\"",
+      "command": "NODE_OPTIONS= quarto render \"${file}\"",
       "group": "none",
       "problemMatcher": []
     },
     {
       "label": "Quarto Publish",
       "type": "shell",
-      "command": "quarto publish",
+      "command": "NODE_OPTIONS= quarto publish",
       "group": "none",
       "problemMatcher": []
     },
