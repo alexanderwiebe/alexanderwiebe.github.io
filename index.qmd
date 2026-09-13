@@ -8,7 +8,7 @@ description: "Software engineer and researcher. Ontologies, knowledge graphs, AI
   <div class="masthead">
     <div class="masthead-row">
       <div>
-        <h1 class="name">AJ WIEBE</h1>
+        <h1 class="name"><a href="/">AJ WIEBE</a></h1>
         <div class="role">Software Engineer &middot; Principal Consultant</div>
       </div>
       <div class="theme-toggle">
