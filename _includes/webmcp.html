@@ -13,6 +13,14 @@
   var mc = document.modelContext || navigator.modelContext;
   var canRegister = !!(mc && typeof mc.registerTool === 'function');
 
+  // Older agents probe navigator.modelContext. When the browser provides the API only on
+  // document, point navigator at the same real object. Never created when WebMCP is absent.
+  if (document.modelContext && !('modelContext' in navigator)) {
+    try {
+      Object.defineProperty(navigator, 'modelContext', { value: document.modelContext, configurable: true });
+    } catch (e) {}
+  }
+
   var SITE_NAME = 'AJ Wiebe';
   var SOURCE_REPO = 'https://github.com/alexanderwiebe/alexanderwiebe.github.io';
   var LINKS = {
