@@ -1,0 +1,31 @@
+# AJ Wiebe
+
+> Personal website of AJ Wiebe, software engineer and principal consultant at Bitovi. Covers ontologies, knowledge graphs, AI agents, and what AJ is building now.
+
+## Pages
+
+- [Home](https://systemsbyaj.com/): Introduction, recent writing and projects
+- [About](https://systemsbyaj.com/about.html): Bio, from research to software development to technical leadership
+- [Résumé](https://systemsbyaj.com/resume.html): Public career summary and education
+- [Research](https://systemsbyaj.com/research.html): Published papers, master's thesis, current research topics
+- [Projects](https://systemsbyaj.com/projects/): What AJ builds and why
+- [Writing](https://systemsbyaj.com/writing/): Articles (none published yet)
+
+## WebMCP tools
+
+Every page registers WebMCP tools (document.modelContext) in browsers that support it. They return the site's content as structured JSON and are read-only, except set_theme.
+
+- about_this_website: what the site is, every page, how it was built, the other tools
+- about_aj_wiebe: bio, work history, education, projects, research and contact links in one call
+- get_current_page: the content of the page that is open, as structured sections
+- list_projects, get_project: the projects and their full write-ups
+- get_experience: résumé and education
+- list_research: publications and research interests
+- search_site: full-text search across all pages
+- set_theme: switch between light and dark themes
+
+## Elsewhere
+
+- [LinkedIn](https://www.linkedin.com/in/softwarebyaj): Full career history
+- [GitHub](https://github.com/alexanderwiebe): Code
+- [Site source](https://github.com/alexanderwiebe/alexanderwiebe.github.io)
