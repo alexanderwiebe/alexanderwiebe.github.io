@@ -24,6 +24,13 @@ Every page registers WebMCP tools (document.modelContext) in browsers that suppo
 - search_site: full-text search across all pages
 - set_theme: switch between light and dark themes
 
+The same tools can be called from page JavaScript in any browser, including ones without WebMCP:
+
+- window.siteTools.list(): tool names, descriptions and input schemas
+- await window.siteTools.call("about_this_website", {}): returns the same JSON string as the WebMCP tool
+- window.siteTools.webmcp: which API registered the tools (document.modelContext or navigator.modelContext), or null
+- The data-webmcp attribute on <html> shows the status: registered, partial, failed or unavailable
+
 ## Elsewhere
 
 - [LinkedIn](https://www.linkedin.com/in/softwarebyaj): Full career history

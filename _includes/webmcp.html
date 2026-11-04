@@ -2,9 +2,16 @@
 // WebMCP: exposes this site's public content as tools for in-browser AI agents.
 // Tools read the site's own published pages, so they stay in sync with the .qmd sources.
 // Spec/docs: https://developer.chrome.com/docs/ai/webmcp
+//
+// The same tools are also callable from page JavaScript in any browser, with or without WebMCP:
+//   window.siteTools.list()                      -> tool names, descriptions, input schemas
+//   await window.siteTools.call(name, input)     -> JSON string, same as the WebMCP result
+//   window.siteTools.webmcp                      -> which API registered the tools, if any
+// <html data-webmcp="..."> shows the status: registered, partial, failed or unavailable.
 (function () {
+  var api = document.modelContext ? 'document.modelContext' : navigator.modelContext ? 'navigator.modelContext' : null;
   var mc = document.modelContext || navigator.modelContext;
-  if (!mc || typeof mc.registerTool !== 'function') return;
+  var canRegister = !!(mc && typeof mc.registerTool === 'function');
 
   var SITE_NAME = 'AJ Wiebe';
   var SOURCE_REPO = 'https://github.com/alexanderwiebe/alexanderwiebe.github.io';
@@ -208,6 +215,10 @@
             howItWasBuilt: { summary: r[2], details: prettyUrl('/projects/this-site.html'), source: SOURCE_REPO },
             currentPage: { title: clean(document.title), url: prettyUrl(location.pathname) },
             tools: tools.map(function (t) { return { name: t.name, use: t.description.split('. ')[0].replace(/\.?$/, '.') }; }),
+            toolAccess: {
+              webmcp: status.api ? 'Registered via ' + status.api : 'WebMCP is not available in this browser',
+              javascript: 'Call any tool from page JavaScript with await window.siteTools.call(name, input); it returns a JSON string.'
+            },
             contact: LINKS
           });
         });
@@ -376,15 +387,44 @@
     };
   }
 
-  tools.forEach(function (tool) {
-    var registered = Object.assign({}, tool, { execute: safe(tool.execute) });
-    try {
-      Promise.resolve(mc.registerTool(registered)).catch(function (err) {
-        console.warn('WebMCP: could not register ' + tool.name, err);
+  var wrapped = tools.map(function (tool) {
+    return Object.assign({}, tool, { execute: safe(tool.execute) });
+  });
+  var status = { api: canRegister ? api : null, registered: [], failed: [] };
+  var root = document.documentElement;
+
+  window.siteTools = {
+    webmcp: status,
+    list: function () {
+      return wrapped.map(function (t) {
+        return { name: t.name, description: t.description, inputSchema: t.inputSchema, annotations: t.annotations };
       });
-    } catch (err) {
-      console.warn('WebMCP: could not register ' + tool.name, err);
+    },
+    call: function (name, input) {
+      var tool = wrapped.filter(function (t) { return t.name === name; })[0];
+      if (!tool) {
+        return Promise.resolve(json({ error: 'Unknown tool: ' + name, tools: wrapped.map(function (t) { return t.name; }) }));
+      }
+      return tool.execute(input);
     }
+  };
+
+  if (!canRegister) {
+    root.setAttribute('data-webmcp', 'unavailable');
+    return;
+  }
+
+  root.setAttribute('data-webmcp', 'pending');
+  Promise.all(wrapped.map(function (tool) {
+    return Promise.resolve().then(function () { return mc.registerTool(tool); }).then(function () {
+      status.registered.push(tool.name);
+    }, function (err) {
+      status.failed.push(tool.name);
+      console.warn('WebMCP: could not register ' + tool.name, err);
+    });
+  })).then(function () {
+    root.setAttribute('data-webmcp',
+      !status.failed.length ? 'registered' : status.registered.length ? 'partial' : 'failed');
   });
 })();
 </script>
