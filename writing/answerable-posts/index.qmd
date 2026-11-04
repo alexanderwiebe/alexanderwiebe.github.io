@@ -2,7 +2,6 @@
 title: "Blog posts that answer agents back"
 description: "The post is for people. Its WebMCP tools are for the agents reading it on their behalf."
 date: 2026-11-04
-draft: true  # example post: rewrite in your own words, then remove this line to publish
 
 agent:
   summary: "A blog post can serve human readers and AI agents at once: prose for people, and WebMCP tools built from the same file that answer the questions readers ask of any post."
