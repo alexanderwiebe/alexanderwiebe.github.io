@@ -52,7 +52,7 @@ agent:
 
 Every `agent:` field is optional. Leave out what doesn't apply; the tools return empty lists.
 
-Rules the build enforces (`_filters/writing-post.lua` fails the render otherwise):
+Rules the build enforces (the quarto-webmcp extension fails the render otherwise):
 
 - Each claim has a unique `id`, a `claim` and `evidence.type`.
 - `evidence.type` is `measured` (AJ measured it), `experienced` (from AJ's own practice),
@@ -66,11 +66,22 @@ Second-level headings (`##`) get anchors from their text: `## Benchmarks` is `#b
 
 | Piece | Job |
 |---|---|
-| `_filters/writing-post.lua` | Wraps the post in the site chrome and embeds `agent:` as `<script id="post-agent">` JSON |
+| `_extensions/alexanderwiebe/webmcp/` | The [quarto-webmcp](https://github.com/alexanderwiebe/quarto-webmcp) extension: validates `agent:`, embeds each page's data, and registers the site and post tools |
+| `webmcp:` in `_quarto.yml` | Extension settings: owner, posts folder (`writing`), theme buttons, this site's layout selectors, origin-trial tokens |
+| `webmcp-index.ts` (post-render) | Writes `webmcp-index.json`, which `list_posts`, `get_post`, `get_page` and `search_site` read |
+| `_includes/site-tools.html` | This site's own tools: `about_aj_wiebe`, `list_projects`, `get_project`, `get_experience`, `list_research` |
+| `_filters/writing-post.lua` | Wraps the post in the site chrome (masthead, crumb, title, dek, dates) |
 | `writing/_metadata.yml` | Turns off Quarto's title block for `writing/` (the filter draws its own) |
 | `writing/index.qmd` + `_post-rows.ejs` | Lists posts automatically, newest first |
-| `_includes/webmcp.html` | Site tools on every page, including `list_posts` and `get_post` |
-| `_includes/webmcp-post.html` | On post pages only: `get_post_summary`, `check_post_fit`, `get_post_credibility`, `get_post_claims`, `get_post_context`, `get_post_next_steps` |
+
+Post pages get `get_post_summary`, `check_post_fit`, `get_post_credibility`, `get_post_claims`,
+`get_post_context` and `get_post_next_steps` from the extension.
+
+To update the extension:
+
+```bash
+quarto add alexanderwiebe/quarto-webmcp
+```
 
 Tool to reader question:
 

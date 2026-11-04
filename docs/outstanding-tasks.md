@@ -24,10 +24,10 @@ still open after the Stage 1–6 build, for AJ to review and check off.
 
 ## WebMCP
 
-- [x] **Origin-trial tokens for `systemsbyaj.com`** are in
-  `_includes/theme-init.html` (Chrome and Edge, subdomain-matching).
+- [x] **Origin-trial tokens for `systemsbyaj.com`** are under
+  `webmcp.origin-trials` in `_quarto.yml` (Chrome and Edge, subdomain-matching).
 - [ ] **Renew the Edge token before 2026-12-19** and the Chrome token
-  before 2027-03-30, from the registration links in `theme-init.html`.
+  before 2027-03-30, from the registration links in `_quarto.yml`.
 - [ ] Optional: register `alexanderwiebe.github.io` tokens too, only if
   the site keeps being served from that origin. The `systemsbyaj.com`
   tokens do nothing there.
