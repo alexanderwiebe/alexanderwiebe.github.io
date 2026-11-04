@@ -21,6 +21,32 @@
     } catch (e) {}
   }
 
+  // Chrome versions disagree on whether executeTool(name, input) takes input as an object or a JSON
+  // string, and reject the other form before the tool runs ("value is not an object"). If the browser
+  // rejects the form an agent passed, retry once with the other form instead of failing the call.
+  if (mc && typeof mc.executeTool === 'function' && !mc.executeTool.__siteShim) {
+    var nativeExecute = mc.executeTool;
+    var shim = function (name, input) {
+      var self = this;
+      var rest = Array.prototype.slice.call(arguments, 2);
+      var call = function (arg) { return nativeExecute.apply(self, [name, arg].concat(rest)); };
+      var alternate = function () {
+        if (typeof input === 'string') {
+          try { return { ok: true, value: JSON.parse(input) }; } catch (e) { return { ok: false }; }
+        }
+        if (input && typeof input === 'object') return { ok: true, value: JSON.stringify(input) };
+        return { ok: false };
+      };
+      return Promise.resolve().then(function () { return call(input); }).catch(function (err) {
+        var alt = alternate();
+        if (!alt.ok) throw err;
+        return call(alt.value);
+      });
+    };
+    shim.__siteShim = true;
+    try { mc.executeTool = shim; } catch (e) {}
+  }
+
   var SITE_NAME = 'AJ Wiebe';
   var SOURCE_REPO = 'https://github.com/alexanderwiebe/alexanderwiebe.github.io';
   var LINKS = {
@@ -256,7 +282,9 @@
             tools: wrapped.map(function (t) { return { name: t.name, use: t.description.split('. ')[0].replace(/\.?$/, '.') }; }),
             toolAccess: {
               webmcp: status.api ? 'Registered via ' + status.api : 'WebMCP is not available in this browser',
-              javascript: 'Call any tool from page JavaScript with await window.siteTools.call(name, input); it returns a JSON string.'
+              javascript: 'Call any tool from page JavaScript with await window.siteTools.call(name, input); it returns a JSON string.',
+              input: 'Pass input as a plain object, e.g. {} or {"claim_id": "c1"}, not JSON.stringify(...). ' +
+                'Invalid input returns {"error": ..., "inputSchema": ..., "example": ...} instead of throwing.'
             },
             contact: LINKS
           });
@@ -447,13 +475,73 @@
     }
   ];
 
-  // A failed call returns an error the agent can act on, instead of throwing.
-  function safe(execute) {
-    return function (input) {
-      if (typeof input === 'string') {
-        try { input = JSON.parse(input); } catch (e) { input = {}; }
+  // An example input built from a tool's schema, shown in input errors so the agent can retry.
+  function exampleInput(schema) {
+    var props = (schema && schema.properties) || {};
+    var out = {};
+    Object.keys(props).forEach(function (key) {
+      var p = props[key];
+      out[key] = p.enum ? p.enum[0] : p.type === 'number' || p.type === 'integer' ? 0 : p.type === 'boolean' ? false : '…';
+    });
+    return out;
+  }
+
+  // Turns whatever the caller passed into the plain object the tool expects, or explains what is wrong.
+  // Accepts an object, a JSON string of an object, or nothing (= {}). Checks the input against the
+  // tool's inputSchema: unknown keys, missing required keys, wrong types and values outside an enum.
+  function parseInput(tool, input) {
+    var schema = tool.inputSchema || { type: 'object', properties: {} };
+    var problems = [];
+    if (input === undefined || input === null || input === '') input = {};
+    if (typeof input === 'string') {
+      try {
+        input = JSON.parse(input);
+      } catch (e) {
+        problems.push('input is a string but not valid JSON (' + e.message + ')');
       }
-      return Promise.resolve().then(function () { return execute(input || {}); }).catch(function (err) {
+    }
+    if (!problems.length && (typeof input !== 'object' || input === null || Array.isArray(input))) {
+      problems.push('input must be an object, got ' + (Array.isArray(input) ? 'an array' : input === null ? 'null' : typeof input));
+    }
+    if (!problems.length) {
+      var props = schema.properties || {};
+      Object.keys(input).forEach(function (key) {
+        var p = props[key];
+        var value = input[key];
+        if (!p) {
+          problems.push('unknown parameter "' + key + '"');
+        } else if (value !== undefined && value !== null) {
+          var actual = Array.isArray(value) ? 'array' : typeof value;
+          var expected = p.type === 'integer' ? 'number' : p.type;
+          if (expected && actual !== expected) {
+            problems.push('"' + key + '" must be a ' + p.type + ', got ' + actual);
+          } else if (p.enum && p.enum.indexOf(value) === -1) {
+            problems.push('"' + key + '" must be one of ' + JSON.stringify(p.enum) + ', got ' + JSON.stringify(value));
+          }
+        }
+      });
+      (schema.required || []).forEach(function (key) {
+        if (input[key] === undefined || input[key] === null || input[key] === '') problems.push('missing required parameter "' + key + '"');
+      });
+    }
+    if (!problems.length) return { input: input };
+    return {
+      error: json({
+        error: 'Invalid input for ' + tool.name + ': ' + problems.join('; ') + '.',
+        expected: 'A plain JSON object matching inputSchema (not a JSON string, array or other value).',
+        inputSchema: schema,
+        example: exampleInput(schema)
+      })
+    };
+  }
+
+  // A failed call returns an error the agent can act on, instead of throwing.
+  function safe(tool) {
+    var execute = tool.execute;
+    return function (input) {
+      var parsed = parseInput(tool, input);
+      if (parsed.error) return Promise.resolve(parsed.error);
+      return Promise.resolve().then(function () { return execute(parsed.input); }).catch(function (err) {
         return json({
           error: String((err && err.message) || err),
           fallback: 'The page content is still available at ' + prettyUrl(location.pathname) + '. Other pages: ' +
@@ -472,7 +560,7 @@
   // <html data-webmcp> reflects every tool registered so far, from this script and later ones.
   function addTools(newTools) {
     var added = newTools.map(function (tool) {
-      return Object.assign({}, tool, { execute: safe(tool.execute) });
+      return Object.assign({}, tool, { execute: safe(tool) });
     });
     wrapped.push.apply(wrapped, added);
     if (!canRegister) {
