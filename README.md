@@ -25,6 +25,8 @@ quarto render                   # render the site to _site/
 Quarto extensions aren't committed. `quarto-extensions.txt` lists them, pinned to release tags, and
 `scripts/install-quarto-extensions.sh` installs them into `_extensions/` (the VS Code Quarto tasks,
 the devcontainer, CI and the publish workflow all run it first). Builds need GitHub to be reachable.
+With Quarto 2, run `QUARTO=q2 make extensions`; the script passes `--trust`, which `q2 add` needs
+to install remote extensions without a prompt.
 
 ## Deployment
 
