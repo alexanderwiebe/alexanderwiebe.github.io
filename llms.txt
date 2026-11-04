@@ -1,0 +1,48 @@
+# AJ Wiebe
+
+> Personal website of AJ Wiebe, software engineer and principal consultant at Bitovi. Covers ontologies, knowledge graphs, AI agents, and what AJ is building now.
+
+## Pages
+
+- [Home](https://systemsbyaj.com/): Introduction, recent writing and projects
+- [About](https://systemsbyaj.com/about.html): Bio, from research to software development to technical leadership
+- [Résumé](https://systemsbyaj.com/resume.html): Public career summary and education
+- [Research](https://systemsbyaj.com/research.html): Published papers, master's thesis, current research topics
+- [Projects](https://systemsbyaj.com/projects/): What AJ builds and why
+- [Writing](https://systemsbyaj.com/writing/): Articles (none published yet)
+
+## WebMCP tools
+
+Every page registers WebMCP tools (document.modelContext) in browsers that support it. They return the site's content as structured JSON and are read-only, except set_theme.
+
+- about_this_website: what the site is, every page, how it was built, the other tools
+- about_aj_wiebe: bio, work history, education, projects, research and contact links in one call
+- get_current_page: the content of the page that is open, as structured sections
+- list_projects, get_project: the projects and their full write-ups
+- get_experience: résumé and education
+- list_research: publications and research interests
+- list_posts, get_post: the blog posts, and one post's structured data (thesis, audience, claims with evidence types, limitations, sources, disclosures, next steps)
+- search_site: full-text search across all pages
+- set_theme: switch between light and dark themes
+
+Blog post pages (under /writing/) also register tools about the post that is open:
+
+- get_post_summary: thesis, takeaways, outline
+- check_post_fit: who the post is for and not for, prerequisites, limitations
+- get_post_credibility: author's experience with the topic, dates, versions tested, known outdated parts, disclosures
+- get_post_claims: each claim with its evidence type (measured, experienced, cited, opinion) and link
+- get_post_context: sources it builds on, supports or contradicts, related posts
+- get_post_next_steps: what to do next, and when not to
+
+The same tools can be called from page JavaScript in any browser, including ones without WebMCP:
+
+- window.siteTools.list(): tool names, descriptions and input schemas
+- await window.siteTools.call("about_this_website", {}): returns the same JSON string as the WebMCP tool
+- window.siteTools.webmcp: which API registered the tools (document.modelContext or navigator.modelContext), or null
+- The data-webmcp attribute on <html> shows the status: registered, partial, failed or unavailable
+
+## Elsewhere
+
+- [LinkedIn](https://www.linkedin.com/in/softwarebyaj): Full career history
+- [GitHub](https://github.com/alexanderwiebe): Code
+- [Site source](https://github.com/alexanderwiebe/alexanderwiebe.github.io)

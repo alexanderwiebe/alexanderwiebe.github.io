@@ -1,0 +1,3 @@
+# Applies to every page under writing/. _filters/writing-post.lua draws the post header itself
+# (crumb, title, dek, dates), so Quarto's own title block is turned off.
+title-block-style: none

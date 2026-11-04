@@ -1,6 +1,11 @@
 ---
 pagetitle: "Writing — AJ Wiebe"
 description: "Research notes, technical explanations, and things learned while building something."
+listing:
+  id: posts
+  contents: "*/index.qmd"
+  sort: "date desc"
+  template: _post-rows.ejs
 ---
 
 ```{=html}
@@ -24,7 +29,11 @@ description: "Research notes, technical explanations, and things learned while b
       <a href="/about.html">About</a>
     </nav>
   </div>
+```
 
-  <p class="muted" style="font-style:italic;">Nothing published yet.</p>
+::: {#posts}
+:::
+
+```{=html}
 </div>
 ```

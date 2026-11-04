@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: _site
+  resources:
+    - llms.txt
   render:
     - "*"
     - "!notebooks/**"
@@ -13,6 +15,7 @@ website:
   open-graph: true
   twitter-card: true
   page-navigation: false
+  draft-mode: unlinked
 
 format:
   html:
@@ -26,3 +29,8 @@ format:
       - _includes/theme-toggle.html
       - _includes/splash.html
       - _includes/footer.html
+      - _includes/webmcp.html
+      - _includes/webmcp-post.html  # after webmcp.html: adds post tools via window.siteTools.add
+
+filters:
+  - _filters/writing-post.lua

@@ -1,0 +1,109 @@
+---
+title: "Asking this site questions with WebMCP"
+description: "Every page here registers tools an AI agent can call. Here's what they are and what to ask."
+date: 2026-11-04
+
+agent:
+  summary: "This site registers WebMCP tools on every page, so an agent in your browser can answer questions about AJ, his projects, research and posts from structured data instead of scraping the page; post pages add tools for questioning that one post."
+  takeaways:
+    - "Site-wide tools work on any page: ask about AJ, his work history, projects, research, posts, or search the whole site."
+    - "Post tools only exist on a post's own page: summary, fit, credibility, claims, context and next steps."
+    - "No WebMCP browser? The same tools are callable from the DevTools console through window.siteTools."
+  audience:
+    for: ["People using an AI agent in a WebMCP-enabled browser", "Developers curious how a static site exposes WebMCP tools"]
+    not_for: ["Agents that fetch pages without a browser; they see the HTML, not the tools"]
+    prerequisites: ["A browser with WebMCP enabled, or the browser's DevTools console"]
+  author_experience: "Built and maintains every tool this post describes."
+  tested_against: { webmcp: "Chrome early preview, 2026", quarto: "1.x" }
+  disclosures: []
+  claims:
+    - id: c1
+      claim: "The tools read the site's own published pages, so their answers match what's on the site."
+      evidence: { type: experienced, detail: "How _includes/webmcp.html is written: each tool loads and parses the rendered page.", link: "#how-it-stays-accurate" }
+    - id: c2
+      claim: "Every tool on this site is read-only except set_theme."
+      evidence: { type: experienced, detail: "Each tool carries readOnlyHint; set_theme only changes the colour scheme for this visitor.", link: "#site-wide-questions" }
+  sources:
+    - { title: "WebMCP (Chrome for Developers)", url: "https://developer.chrome.com/docs/ai/webmcp", relation: background }
+  related: [answerable-posts]
+  limitations:
+    - "The tools exist only while a page is open in a browser that supports WebMCP, or when called from the console."
+    - "Post answers come from the author's own frontmatter. They are structured, not verified."
+  next_steps:
+    - { action: "Open a post and ask it questions", link: "/writing/answerable-posts/" }
+    - { action: "Read the implementation", link: "https://github.com/alexanderwiebe/alexanderwiebe.github.io/blob/main/_includes/webmcp.html" }
+---
+
+This site has two audiences: you, and whatever AI agent you bring with you. The pages are for you. For the agent, every page also registers [WebMCP](https://developer.chrome.com/docs/ai/webmcp) tools, small functions it can call to get answers as structured data instead of guessing from the layout.
+
+## What you need
+
+A browser with WebMCP turned on and an agent that can use it. Chrome has it as an early preview; the [Chrome for Developers docs](https://developer.chrome.com/docs/ai/webmcp) explain how to enable it. Once a page loads, the tools are there. You don't need to click or install anything on this site.
+
+No WebMCP browser? Skip to [Without an agent](#without-an-agent).
+
+## Site-wide questions
+
+These tools are registered on every page, so you can ask them from anywhere on the site.
+
+| Ask something like | Tool the agent should use |
+|---|---|
+| "What is this site? What can I find here?" | `about_this_website` |
+| "Who is AJ Wiebe and how do I contact him?" | `about_aj_wiebe` |
+| "What's on the page I'm looking at?" | `get_current_page` |
+| "Where has AJ worked? What's his education?" | `get_experience` |
+| "What has AJ built?" | `list_projects` |
+| "Tell me about the AI Briefing project." | `get_project` |
+| "What papers has AJ published? What's he researching now?" | `list_research` |
+| "What has AJ written?" | `list_posts` |
+| "Give me the claims and evidence from the WebMCP post." | `get_post` |
+| "Search the site for knowledge graphs." | `search_site` |
+| "Switch to dark mode." | `set_theme` |
+
+All of them only read, except `set_theme`, which changes the colour scheme and remembers your choice in this browser.
+
+`get_post` is worth knowing about. It returns a whole post's thesis, audience, claims, sources and next steps without you opening it, so an agent can compare posts or decide which one is worth your time.
+
+## Questions about one post
+
+Open a post and its page adds six more tools. They answer the questions people tend to ask of any article. [Blog posts that answer agents back](/writing/answerable-posts/) is a good one to try them on.
+
+| Ask something like | Tool the agent should use |
+|---|---|
+| "Give me the one-line version." / "Summarize this with its takeaways." / "Outline it." | `get_post_summary` |
+| "I'm a platform engineer on a Hugo blog. Is this for me?" | `check_post_fit` |
+| "What do I need to know before reading this?" | `check_post_fit` |
+| "Why should I trust this? Is the author selling anything?" | `get_post_credibility` |
+| "What does this claim, and what's the evidence?" / "Which claims are only opinion?" | `get_post_claims` |
+| "What does this build on? Does anything contradict it?" | `get_post_context` |
+| "I've read it. What now? Where does this advice stop applying?" | `get_post_next_steps` |
+
+Every claim in a post is labelled with how the author knows it: **measured** (the author measured it), **experienced** (from the author's own practice), **cited** (from a linked source) or **opinion**. Asking "which claims are only opinion?" is the quickest way to see how much a post rests on judgment.
+
+Good answers also say no when they should. Asking for a claim that doesn't exist, or about a topic the post doesn't cover, should come back as "not there", not an invented answer.
+
+## Without an agent
+
+The same tools are callable from page JavaScript in any browser. Open DevTools, go to the Console, and try:
+
+```js
+// Every tool registered on this page
+window.siteTools.list().map(t => t.name)
+
+// Call one; results are JSON strings
+JSON.parse(await window.siteTools.call('list_projects', {}))
+JSON.parse(await window.siteTools.call('search_site', { query: 'ontology' }))
+
+// On a post page
+JSON.parse(await window.siteTools.call('get_post_claims', {}))
+```
+
+Pass input as a plain object, not a JSON string. Bad input returns an error with the expected schema and an example rather than throwing. `<html data-webmcp="...">` shows whether the browser accepted the tools: `registered`, `partial`, `failed` or `unavailable`.
+
+## How it stays accurate
+
+The tools don't keep a copy of the site. Each one loads the site's own rendered pages and reads them, so when a page changes, the answers change with it. Post tools read the post's `agent:` frontmatter, the same file the post itself is written in, so the prose and the structured answers can't drift apart.
+
+## What this doesn't do
+
+The tools only exist while a page is open in a browser. A crawler or an API-only agent fetching the HTML won't see them. And post answers are what the author wrote down: structure makes it easier to be honest about evidence, but it doesn't check it.
