@@ -26,3 +26,4 @@ format:
       - _includes/theme-toggle.html
       - _includes/splash.html
       - _includes/footer.html
+      - _includes/webmcp.html

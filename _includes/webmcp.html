@@ -1,0 +1,251 @@
+<script>
+// WebMCP: exposes this site's public content as tools for in-browser AI agents.
+// Tools read the site's own published pages, so they stay in sync with the .qmd sources.
+// Spec/docs: https://developer.chrome.com/docs/ai/webmcp
+(function () {
+  var mc = document.modelContext || navigator.modelContext;
+  if (!mc || typeof mc.registerTool !== 'function') return;
+
+  var STATIC_PAGES = ['/index.html', '/about.html', '/research.html', '/resume.html', '/projects/index.html', '/writing/index.html'];
+  var cache = {};
+
+  function clean(s) {
+    return (s || '').replace(/\s+/g, ' ').trim();
+  }
+
+  function text(el) {
+    if (!el) return '';
+    var copy = el.cloneNode(true);
+    copy.querySelectorAll('svg, script, style').forEach(function (n) { n.remove(); });
+    copy.querySelectorAll('br').forEach(function (n) { n.replaceWith(' '); });
+    return clean(copy.textContent);
+  }
+
+  function absUrl(href) {
+    return new URL(href, location.origin).href;
+  }
+
+  function loadPage(path) {
+    if (!cache[path]) {
+      cache[path] = fetch(path, { credentials: 'same-origin' }).then(function (res) {
+        if (!res.ok) throw new Error('Could not load ' + path + ' (HTTP ' + res.status + ')');
+        return res.text();
+      }).then(function (html) {
+        return new DOMParser().parseFromString(html, 'text/html');
+      });
+      cache[path].catch(function () { delete cache[path]; });
+    }
+    return cache[path];
+  }
+
+  // Splits a page's .wrap into sections headed by .section-label or h2.h2.
+  function sections(doc) {
+    var wrap = doc.querySelector('.wrap');
+    var out = [];
+    var current = { heading: null, items: [] };
+    if (!wrap) return out;
+    Array.prototype.forEach.call(wrap.children, function (el) {
+      if (el.matches('.masthead, .crumb, h1.title, .dek, svg, style, script')) return;
+      if (el.matches('.section-label, h2.h2')) {
+        if (current.heading || current.items.length) out.push(current);
+        current = { heading: text(el), items: [] };
+        return;
+      }
+      var t = text(el);
+      if (t) current.items.push(t);
+    });
+    if (current.heading || current.items.length) out.push(current);
+    return out;
+  }
+
+  function listProjects() {
+    return loadPage('/projects/index.html').then(function (doc) {
+      return Array.prototype.map.call(doc.querySelectorAll('.project-row'), function (row) {
+        var link = row.querySelector('.row-title');
+        var url = absUrl(link.getAttribute('href'));
+        var slug = new URL(url).pathname.replace(/^\/projects\//, '').replace(/\.html$/, '');
+        return { slug: slug, title: text(link), description: text(row.querySelector('.row-desc')), url: url };
+      });
+    });
+  }
+
+  function json(data) {
+    return JSON.stringify(data, null, 2);
+  }
+
+  var tools = [
+    {
+      name: 'get_profile',
+      description: "Get AJ Wiebe's public profile: name, role, a short bio organized by career phase, and links to LinkedIn and GitHub.",
+      inputSchema: { type: 'object', properties: {} },
+      annotations: { readOnlyHint: true },
+      execute: function () {
+        return loadPage('/about.html').then(function (doc) {
+          return json({
+            name: 'AJ Wiebe',
+            role: text(doc.querySelector('.masthead .role')),
+            summary: text(doc.querySelector('.dek')),
+            bio: sections(doc),
+            links: {
+              website: location.origin,
+              linkedin: 'https://www.linkedin.com/in/softwarebyaj',
+              github: 'https://github.com/alexanderwiebe'
+            }
+          });
+        });
+      }
+    },
+    {
+      name: 'list_projects',
+      description: "List the projects AJ Wiebe has built, each with a slug, title, one-line description, and URL. Use a slug with get_project for details.",
+      inputSchema: { type: 'object', properties: {} },
+      annotations: { readOnlyHint: true },
+      execute: function () {
+        return listProjects().then(json);
+      }
+    },
+    {
+      name: 'get_project',
+      description: "Get the full write-up of one of AJ Wiebe's projects (why it exists, how it works, etc.). Call list_projects first to get valid slugs.",
+      inputSchema: {
+        type: 'object',
+        properties: { slug: { type: 'string', description: 'Project slug from list_projects, e.g. "ai-briefing".' } },
+        required: ['slug']
+      },
+      annotations: { readOnlyHint: true },
+      execute: function (input) {
+        var slug = input && input.slug;
+        return listProjects().then(function (projects) {
+          var project = projects.filter(function (p) { return p.slug === slug; })[0];
+          if (!project) {
+            return json({ error: 'Unknown project slug: ' + slug, validSlugs: projects.map(function (p) { return p.slug; }) });
+          }
+          return loadPage(new URL(project.url).pathname).then(function (doc) {
+            return json({
+              slug: project.slug,
+              title: text(doc.querySelector('h1.title')) || project.title,
+              summary: text(doc.querySelector('.dek')) || project.description,
+              url: project.url,
+              sections: sections(doc)
+            });
+          });
+        });
+      }
+    },
+    {
+      name: 'get_experience',
+      description: "Get AJ Wiebe's public career summary: roles with dates and descriptions, plus education. The full history is on LinkedIn.",
+      inputSchema: { type: 'object', properties: {} },
+      annotations: { readOnlyHint: true },
+      execute: function () {
+        return loadPage('/resume.html').then(function (doc) {
+          var result = { experience: [], education: [], linkedin: 'https://www.linkedin.com/in/softwarebyaj' };
+          var section = null;
+          Array.prototype.forEach.call(doc.querySelector('.wrap').children, function (el) {
+            if (el.matches('.section-label')) section = text(el).toLowerCase();
+            if (!el.matches('.pub-row')) return;
+            var entry = {
+              dates: clean(el.querySelector('.pub-meta').textContent),
+              title: text(el.querySelector('.pub-title')),
+              description: text(el.querySelector('.pub-authors'))
+            };
+            if (section === 'education') result.education.push(entry);
+            else result.experience.push(entry);
+          });
+          return json(result);
+        });
+      }
+    },
+    {
+      name: 'list_research',
+      description: "List AJ Wiebe's published research (papers and thesis, with year, venue, and links) and current independent research topics.",
+      inputSchema: { type: 'object', properties: {} },
+      annotations: { readOnlyHint: true },
+      execute: function () {
+        return loadPage('/research.html').then(function (doc) {
+          var pubs = Array.prototype.map.call(doc.querySelectorAll('.pub-row'), function (row) {
+            var meta = row.querySelector('.pub-meta').innerHTML.split(/<br\s*\/?>/i).map(function (s) {
+              return clean(s.replace(/<[^>]+>/g, ''));
+            });
+            var link = row.querySelector('.pub-title a');
+            return {
+              year: meta[0],
+              venue: meta[1] || null,
+              title: text(row.querySelector('.pub-title')),
+              details: text(row.querySelector('.pub-authors')),
+              url: link ? absUrl(link.getAttribute('href')) : null
+            };
+          });
+          var topics = Array.prototype.map.call(doc.querySelectorAll('.topic-list li'), text);
+          return json({ publications: pubs, currentTopics: topics });
+        });
+      }
+    },
+    {
+      name: 'search_site',
+      description: "Search all pages on AJ Wiebe's website for a word or phrase. Returns matching pages with a short snippet around each match.",
+      inputSchema: {
+        type: 'object',
+        properties: { query: { type: 'string', description: 'Word or phrase to search for (case-insensitive).' } },
+        required: ['query']
+      },
+      annotations: { readOnlyHint: true },
+      execute: function (input) {
+        var query = clean(input && input.query).toLowerCase();
+        if (!query) return json({ error: 'query must not be empty' });
+        return listProjects().then(function (projects) {
+          var paths = STATIC_PAGES.concat(projects.map(function (p) { return new URL(p.url).pathname; }));
+          return Promise.all(paths.map(function (path) {
+            return loadPage(path).then(function (doc) {
+              var body = text(doc.querySelector('.wrap'));
+              var idx = body.toLowerCase().indexOf(query);
+              if (idx === -1) return null;
+              var start = Math.max(0, idx - 80);
+              return {
+                title: clean(doc.title),
+                url: absUrl(path.replace(/index\.html$/, '')),
+                snippet: (start > 0 ? '…' : '') + body.slice(start, idx + query.length + 80) + '…'
+              };
+            }, function () { return null; });
+          }));
+        }).then(function (results) {
+          var matches = results.filter(Boolean);
+          return json({ query: query, matches: matches });
+        });
+      }
+    },
+    {
+      name: 'set_theme',
+      description: 'Switch this website between its light and dark color themes. The choice is remembered for this visitor.',
+      inputSchema: {
+        type: 'object',
+        properties: { theme: { type: 'string', enum: ['light', 'dark'] } },
+        required: ['theme']
+      },
+      annotations: { readOnlyHint: false },
+      execute: function (input) {
+        var theme = input && input.theme;
+        if (theme !== 'light' && theme !== 'dark') return json({ error: 'theme must be "light" or "dark"' });
+        var btn = document.querySelector('[data-theme-btn="' + theme + '"]');
+        if (btn) {
+          btn.click();
+        } else {
+          document.documentElement.setAttribute('data-theme', theme);
+          try { localStorage.setItem('theme', theme); } catch (e) {}
+        }
+        return json({ theme: document.documentElement.getAttribute('data-theme') });
+      }
+    }
+  ];
+
+  tools.forEach(function (tool) {
+    try {
+      Promise.resolve(mc.registerTool(tool)).catch(function (err) {
+        console.warn('WebMCP: could not register ' + tool.name, err);
+      });
+    } catch (err) {
+      console.warn('WebMCP: could not register ' + tool.name, err);
+    }
+  });
+})();
+</script>

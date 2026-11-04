@@ -22,6 +22,18 @@ still open after the Stage 1–6 build, for AJ to review and check off.
   genuinely-independent dual hosting via Cloudflare Pages), pick one.
   Nothing here is done yet: no DNS records exist for the domain.
 
+## WebMCP
+
+- [ ] **Register origin-trial tokens** for WebMCP in Chrome and Edge, for
+  each origin the site is served from (`systemsbyaj.com` and/or
+  `alexanderwiebe.github.io`), and uncomment the matching `<meta>` lines in
+  `_includes/theme-init.html`. Until then the tools in
+  `_includes/webmcp.html` only register in browsers with WebMCP enabled
+  locally. Tokens expire; renew them from the same pages. The Edge trial
+  is currently listed as ending 2026-11-17.
+- [ ] Optional: a Projects entry or first Writing post about exposing the
+  site to agents via WebMCP.
+
 ## Possible future Projects entries (not added without your say-so)
 
 Found while re-checking "private" repos that turned out to be public
