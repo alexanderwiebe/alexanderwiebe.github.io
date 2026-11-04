@@ -38,6 +38,9 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
+      - name: Install Quarto extensions
+        run: scripts/install-quarto-extensions.sh
+
       - name: Render
         run: quarto render
 

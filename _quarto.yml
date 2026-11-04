@@ -36,7 +36,7 @@ filters:
   - _filters/writing-post.lua
   - webmcp
 
-# WebMCP tools for agents, from the quarto-webmcp extension (_extensions/alexanderwiebe/webmcp).
+# WebMCP tools for agents, from the quarto-webmcp extension (pinned in quarto-extensions.txt).
 # Writing posts' agent: frontmatter is documented in docs/agent-posts.md.
 webmcp:
   name: "AJ Wiebe"

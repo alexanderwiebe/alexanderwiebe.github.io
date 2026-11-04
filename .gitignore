@@ -11,6 +11,8 @@ __pycache__/
 # Quarto
 _site/
 /.quarto/
+# Installed from quarto-extensions.txt by scripts/install-quarto-extensions.sh, like node_modules/
+/_extensions/
 
 # dotenv files
 .env

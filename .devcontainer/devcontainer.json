@@ -21,7 +21,7 @@
       }
     }
   },
-  "postCreateCommand": "pip install '.[dev]' && pre-commit install && npm install -g @anthropic-ai/claude-code && echo 'alias claude=\"NODE_OPTIONS= claude\"' >> ~/.bashrc",
+  "postCreateCommand": "pip install '.[dev]' && pre-commit install && scripts/install-quarto-extensions.sh && npm install -g @anthropic-ai/claude-code && echo 'alias claude=\"NODE_OPTIONS= claude\"' >> ~/.bashrc",
   "features": {
     "ghcr.io/devcontainers/features/node:1": {},
     "ghcr.io/devcontainers/features/github-cli:1": {}

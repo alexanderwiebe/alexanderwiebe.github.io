@@ -66,7 +66,7 @@ Second-level headings (`##`) get anchors from their text: `## Benchmarks` is `#b
 
 | Piece | Job |
 |---|---|
-| `_extensions/alexanderwiebe/webmcp/` | The [quarto-webmcp](https://github.com/alexanderwiebe/quarto-webmcp) extension: validates `agent:`, embeds each page's data, and registers the site and post tools |
+| `quarto-extensions.txt` | Pins the [quarto-webmcp](https://github.com/alexanderwiebe/quarto-webmcp) extension, installed into `_extensions/alexanderwiebe/webmcp/` (not committed). The extension validates `agent:`, embeds each page's data, and registers the site and post tools |
 | `webmcp:` in `_quarto.yml` | Extension settings: owner, posts folder (`writing`), theme buttons, this site's layout selectors, origin-trial tokens |
 | `webmcp-index.ts` (post-render) | Writes `webmcp-index.json`, which `list_posts`, `get_post`, `get_page` and `search_site` read |
 | `_includes/site-tools.html` | This site's own tools: `about_aj_wiebe`, `list_projects`, `get_project`, `get_experience`, `list_research` |
@@ -77,11 +77,7 @@ Second-level headings (`##`) get anchors from their text: `## Benchmarks` is `#b
 Post pages get `get_post_summary`, `check_post_fit`, `get_post_credibility`, `get_post_claims`,
 `get_post_context` and `get_post_next_steps` from the extension.
 
-To update the extension:
-
-```bash
-quarto add alexanderwiebe/quarto-webmcp
-```
+To update the extension, change its tag in `quarto-extensions.txt` and run `make extensions`.
 
 Tool to reader question:
 
