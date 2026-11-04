@@ -24,13 +24,13 @@ still open after the Stage 1–6 build, for AJ to review and check off.
 
 ## WebMCP
 
-- [ ] **Register origin-trial tokens** for WebMCP in Chrome and Edge, for
-  each origin the site is served from (`systemsbyaj.com` and/or
-  `alexanderwiebe.github.io`), and uncomment the matching `<meta>` lines in
-  `_includes/theme-init.html`. Until then the tools in
-  `_includes/webmcp.html` only register in browsers with WebMCP enabled
-  locally. Tokens expire; renew them from the same pages. The Edge trial
-  is currently listed as ending 2026-11-17.
+- [x] **Origin-trial tokens for `systemsbyaj.com`** are in
+  `_includes/theme-init.html` (Chrome and Edge, subdomain-matching).
+- [ ] **Renew the Edge token before 2026-12-19** and the Chrome token
+  before 2027-03-30, from the registration links in `theme-init.html`.
+- [ ] Optional: register `alexanderwiebe.github.io` tokens too, only if
+  the site keeps being served from that origin. The `systemsbyaj.com`
+  tokens do nothing there.
 - [ ] Optional: a Projects entry or first Writing post about exposing the
   site to agents via WebMCP.
 
