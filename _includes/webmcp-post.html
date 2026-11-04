@@ -1,0 +1,172 @@
+<script>
+// WebMCP tools for the blog post open on this page. Included on every page, but does nothing unless
+// the page has the <script id="post-agent"> data that _filters/writing-post.lua embeds in posts.
+// Each tool answers one question a reader (or their agent) asks of a post: what is it, is it for me,
+// can I trust it, what does it claim and on what evidence, how does it fit with other work, what next.
+// Registered through window.siteTools.add from _includes/webmcp.html, which must load first.
+(function () {
+  var el = document.getElementById('post-agent');
+  if (!el) return;
+  if (!window.siteTools || !window.siteTools.add) {
+    console.warn('WebMCP: post tools need _includes/webmcp.html to load first');
+    return;
+  }
+
+  var post;
+  try {
+    post = JSON.parse(el.textContent);
+  } catch (e) {
+    console.warn('WebMCP: post agent data is not valid JSON', e);
+    return;
+  }
+
+  var json = window.siteTools.json;
+  var absUrl = window.siteTools.absUrl;
+  var a = post.agent || {};
+  var pageUrl = location.origin + location.pathname;
+
+  function list(x) { return Array.isArray(x) ? x : []; }
+
+  // "#benchmarks" -> this page's anchor; "/assets/x.yml" -> absolute URL; full URLs unchanged.
+  function link(href) {
+    if (!href) return null;
+    return href.charAt(0) === '#' ? pageUrl + href : absUrl(href);
+  }
+
+  function claims() {
+    return list(a.claims).map(function (c) {
+      var e = c.evidence || {};
+      return {
+        id: c.id,
+        claim: c.claim,
+        evidence: { type: e.type, detail: e.detail || null, link: link(e.link) }
+      };
+    });
+  }
+
+  var SELF_REPORTED = 'Written by the post author. Check the linked evidence before relying on it.';
+
+  window.siteTools.add([
+    {
+      name: 'get_post_summary',
+      description: "Summarizes the blog post open on this page. depth \"one_line\" returns the thesis only; \"abstract\" (default) adds the key takeaways; " +
+        "\"outline\" adds every section heading with a link. Use for \"what is this post about?\" or \"what's the main point?\".",
+      inputSchema: {
+        type: 'object',
+        properties: { depth: { type: 'string', enum: ['one_line', 'abstract', 'outline'] } }
+      },
+      annotations: { readOnlyHint: true },
+      execute: function (input) {
+        var depth = input.depth || 'abstract';
+        var out = { title: post.title, url: pageUrl, thesis: a.summary || post.description };
+        if (depth === 'one_line') return json(out);
+        out.description = post.description;
+        out.takeaways = list(a.takeaways);
+        if (depth === 'outline') {
+          out.outline = list(post.outline).map(function (s) { return { heading: s.heading, url: link(s.anchor) }; });
+        }
+        return json(out);
+      }
+    },
+    {
+      name: 'check_post_fit',
+      description: "Says who the blog post open on this page is for and not for, what it assumes the reader knows, and where its advice stops applying. " +
+        "Pass the reader's role, situation or goal to have them echoed next to the criteria; compare them yourself. " +
+        "Use for \"is this relevant to me?\" or \"will this work for my situation?\".",
+      inputSchema: {
+        type: 'object',
+        properties: {
+          role: { type: 'string', description: "The reader's role, e.g. \"platform engineer\"." },
+          situation: { type: 'string', description: "The reader's context, e.g. \"monorepo on self-hosted runners\"." },
+          goal: { type: 'string', description: 'What the reader wants to get done.' }
+        }
+      },
+      annotations: { readOnlyHint: true },
+      execute: function (input) {
+        var aud = a.audience || {};
+        return json({
+          reader: { role: input.role || null, situation: input.situation || null, goal: input.goal || null },
+          goodFitIf: list(aud['for']),
+          notAFitIf: list(aud.not_for),
+          prerequisites: list(aud.prerequisites),
+          limitations: list(a.limitations),
+          howToDecide: 'The post fits if the reader matches goodFitIf, matches nothing in notAFitIf, and no limitation applies to their situation.'
+        });
+      }
+    },
+    {
+      name: 'get_post_credibility',
+      description: "Answers \"why should I trust this blog post?\" for the post open on this page: who wrote it and their hands-on experience with this topic, " +
+        "when it was published and updated, the tool or library versions it was tested against, parts the author knows are outdated, " +
+        "and disclosures (sponsorships, affiliate links, products the author sells).",
+      inputSchema: { type: 'object', properties: {} },
+      annotations: { readOnlyHint: true },
+      execute: function () {
+        var disclosures = list(a.disclosures);
+        return json({
+          author: { name: post.author, experienceWithThisTopic: a.author_experience || null, about: absUrl('/about.html') },
+          published: post.published || null,
+          updated: post.updated || post.published || null,
+          testedAgainst: a.tested_against || {},
+          knownOutdated: list(a.outdated),
+          disclosures: disclosures.length ? disclosures : ['None. The author declares no sponsorship, affiliate links or related product.'],
+          note: SELF_REPORTED
+        });
+      }
+    },
+    {
+      name: 'get_post_claims',
+      description: "Lists the claims the blog post open on this page makes, each with its evidence: type (measured = the author measured it, " +
+        "experienced = from the author's own practice, cited = from a linked source, opinion = the author's judgment), details and a link. " +
+        "Pass claim_id for one claim. Use for \"how do they know?\" or \"is the evidence any good?\".",
+      inputSchema: {
+        type: 'object',
+        properties: { claim_id: { type: 'string', description: 'One claim id from a previous call. Omit for all claims.' } }
+      },
+      annotations: { readOnlyHint: true },
+      execute: function (input) {
+        var all = claims();
+        if (!input.claim_id) return json({ claims: all, note: SELF_REPORTED });
+        var one = all.filter(function (c) { return c.id === input.claim_id; })[0];
+        if (!one) return json({ error: 'No claim with id "' + input.claim_id + '".', claimIds: all.map(function (c) { return c.id; }) });
+        return json(one);
+      }
+    },
+    {
+      name: 'get_post_context',
+      description: "Shows how the blog post open on this page relates to other work: sources it builds on, sources that support or contradict it, " +
+        "and the author's related posts. Use for \"how does this fit with what else is out there?\" or \"what do others say?\".",
+      inputSchema: { type: 'object', properties: {} },
+      annotations: { readOnlyHint: true },
+      execute: function () {
+        var groups = { builds_on: [], supports: [], contradicts: [], background: [] };
+        list(a.sources).forEach(function (s) {
+          var key = (s.relation || 'background').replace('-', '_');
+          (groups[key] || groups.background).push({ title: s.title || s.url, url: link(s.url), note: s.note || null });
+        });
+        return json({
+          sources: groups,
+          relatedPosts: list(a.related).map(function (slug) { return { slug: slug, url: absUrl('/writing/' + slug + '/') }; }),
+          tip: 'Call get_post with a related post\'s slug to read it without leaving this page.'
+        });
+      }
+    },
+    {
+      name: 'get_post_next_steps',
+      description: "Says what to do after reading the blog post open on this page: concrete next steps with links to templates, code or files, " +
+        "plus the limitations, so the reader knows when not to follow the advice. Use for \"so what?\" or \"what should I do with this?\".",
+      inputSchema: { type: 'object', properties: {} },
+      annotations: { readOnlyHint: true },
+      execute: function () {
+        return json({
+          nextSteps: list(a.next_steps).map(function (s) {
+            return typeof s === 'string' ? { action: s, link: null } : { action: s.action, link: link(s.link) };
+          }),
+          limitations: list(a.limitations),
+          contact: 'For questions the post does not answer, see ' + absUrl('/about.html')
+        });
+      }
+    }
+  ]);
+})();
+</script>

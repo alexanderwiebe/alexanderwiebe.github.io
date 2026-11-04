@@ -1,0 +1,13 @@
+<%
+// Quarto listing template for writing/index.qmd. Rows reuse the project-row style; the post-row
+// class and data-published attribute are what the list_posts WebMCP tool reads.
+%>
+<% if (items.length === 0) { %>
+<p class="muted" style="font-style:italic;">Nothing published yet.</p>
+<% } %>
+<% for (const item of items) { %>
+<div class="project-row post-row" data-published="<%= item.date || '' %>" <%= metadataAttrs(item) %>>
+  <a class="row-title" href="<%- item.path %>"><%= item.title %></a>
+  <p class="row-desc"><%= item.description || '' %></p>
+</div>
+<% } %>

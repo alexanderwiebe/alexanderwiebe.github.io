@@ -21,8 +21,18 @@ Every page registers WebMCP tools (document.modelContext) in browsers that suppo
 - list_projects, get_project: the projects and their full write-ups
 - get_experience: résumé and education
 - list_research: publications and research interests
+- list_posts, get_post: the blog posts, and one post's structured data (thesis, audience, claims with evidence types, limitations, sources, disclosures, next steps)
 - search_site: full-text search across all pages
 - set_theme: switch between light and dark themes
+
+Blog post pages (under /writing/) also register tools about the post that is open:
+
+- get_post_summary: thesis, takeaways, outline
+- check_post_fit: who the post is for and not for, prerequisites, limitations
+- get_post_credibility: author's experience with the topic, dates, versions tested, known outdated parts, disclosures
+- get_post_claims: each claim with its evidence type (measured, experienced, cited, opinion) and link
+- get_post_context: sources it builds on, supports or contradicts, related posts
+- get_post_next_steps: what to do next, and when not to
 
 The same tools can be called from page JavaScript in any browser, including ones without WebMCP:
 

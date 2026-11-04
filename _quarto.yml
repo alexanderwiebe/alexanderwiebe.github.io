@@ -29,3 +29,7 @@ format:
       - _includes/splash.html
       - _includes/footer.html
       - _includes/webmcp.html
+      - _includes/webmcp-post.html  # after webmcp.html: adds post tools via window.siteTools.add
+
+filters:
+  - _filters/writing-post.lua

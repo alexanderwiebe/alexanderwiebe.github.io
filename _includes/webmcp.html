@@ -83,14 +83,21 @@
     return clean(meta && meta.getAttribute('content')) || text(doc.querySelector('.dek'));
   }
 
+  // Children of el, with the <section> wrappers Quarto puts around Markdown headings flattened.
+  function flatChildren(el) {
+    return Array.prototype.reduce.call(el.children, function (all, child) {
+      return all.concat(child.matches('section') ? flatChildren(child) : [child]);
+    }, []);
+  }
+
   // Splits a page's .wrap into sections headed by .section-label or h2.h2.
   function sections(doc) {
     var wrap = doc.querySelector('.wrap');
     var out = [];
     var current = { heading: null, items: [] };
     if (!wrap) return out;
-    Array.prototype.forEach.call(wrap.children, function (el) {
-      if (el.matches('.masthead, .crumb, h1.title, .dek, svg, style, script')) return;
+    flatChildren(wrap).forEach(function (el) {
+      if (el.matches('.masthead, .crumb, h1.title, .dek, .post-dates, svg, style, script')) return;
       if (el.matches('.section-label, h2.h2')) {
         if (current.heading || current.items.length) out.push(current);
         current = { heading: text(el), items: [] };
@@ -121,6 +128,30 @@
         return { slug: slug, title: text(link), description: text(row.querySelector('.row-desc')), url: url };
       });
     });
+  }
+
+  // Posts are listed on /writing/ by writing/_post-rows.ejs.
+  function listPosts() {
+    return loadPage('/writing/index.html').then(function (doc) {
+      return Array.prototype.map.call(doc.querySelectorAll('.post-row'), function (row) {
+        var link = row.querySelector('.row-title');
+        var url = absUrl(link.getAttribute('href'));
+        var slug = new URL(url).pathname.replace(/^\/writing\//, '').replace(/(\/index)?\.html$|\/$/, '');
+        return {
+          slug: slug,
+          title: text(link),
+          description: text(row.querySelector('.row-desc')),
+          published: row.getAttribute('data-published') || null,
+          url: prettyUrl(new URL(url).pathname)
+        };
+      });
+    });
+  }
+
+  // The agent data _filters/writing-post.lua embeds in every post, or null on other pages.
+  function postData(doc) {
+    var el = doc.getElementById('post-agent');
+    return el ? JSON.parse(el.textContent) : null;
   }
 
   function getExperience() {
@@ -222,7 +253,7 @@
             pages: r[1],
             howItWasBuilt: { summary: r[2], details: prettyUrl('/projects/this-site.html'), source: SOURCE_REPO },
             currentPage: { title: clean(document.title), url: prettyUrl(location.pathname) },
-            tools: tools.map(function (t) { return { name: t.name, use: t.description.split('. ')[0].replace(/\.?$/, '.') }; }),
+            tools: wrapped.map(function (t) { return { name: t.name, use: t.description.split('. ')[0].replace(/\.?$/, '.') }; }),
             toolAccess: {
               webmcp: status.api ? 'Registered via ' + status.api : 'WebMCP is not available in this browser',
               javascript: 'Call any tool from page JavaScript with await window.siteTools.call(name, input); it returns a JSON string.'
@@ -305,6 +336,43 @@
       }
     },
     {
+      name: 'list_posts',
+      description: "Lists AJ Wiebe's blog posts / articles / writing, newest first, each with title, one-line description, publish date and URL.",
+      inputSchema: { type: 'object', properties: {} },
+      annotations: { readOnlyHint: true },
+      execute: function () {
+        return listPosts().then(function (posts) {
+          return json({ posts: posts, note: posts.length ? undefined : 'Nothing published yet.' });
+        });
+      }
+    },
+    {
+      name: 'get_post',
+      description: "Returns one of AJ Wiebe's blog posts as structured data without opening it: thesis, takeaways, who it is for, " +
+        "each claim with its evidence type (measured, experienced, cited or opinion), limitations, sources, disclosures, dates and next steps. " +
+        "Accepts the post's title, part of its title, or its slug. On a post's own page, the get_post_* tools answer narrower questions.",
+      inputSchema: {
+        type: 'object',
+        properties: { post: { type: 'string', description: 'Post title, part of the title, or slug.' } },
+        required: ['post']
+      },
+      annotations: { readOnlyHint: true },
+      execute: function (input) {
+        var query = input && (input.post || input.slug || input.title);
+        return listPosts().then(function (posts) {
+          var post = findProject(posts, query);
+          if (!post) {
+            return json({ error: 'No post matches "' + query + '".', posts: posts.map(function (p) { return p.title; }) });
+          }
+          return loadPage(new URL(post.url).pathname).then(function (doc) {
+            var data = postData(doc);
+            if (!data) return json({ error: 'This post has no agent data.', url: post.url, page: pageContent(doc, new URL(post.url).pathname) });
+            return json(Object.assign({ slug: post.slug, url: post.url }, data));
+          });
+        });
+      }
+    },
+    {
       name: 'get_experience',
       description: "Returns AJ Wiebe's résumé / CV: work history (roles, employers, dates, what he did in each role) and education. The full history is on LinkedIn.",
       inputSchema: { type: 'object', properties: {} },
@@ -334,9 +402,9 @@
       execute: function (input) {
         var query = clean(input && input.query).toLowerCase();
         if (!query) return json({ error: 'query must not be empty' });
-        return listProjects().then(function (projects) {
+        return Promise.all([listProjects(), listPosts().catch(function () { return []; })]).then(function (r) {
           var paths = PAGES.map(function (p) { return p.path; })
-            .concat(projects.map(function (p) { return new URL(p.url).pathname; }));
+            .concat(r[0].concat(r[1]).map(function (p) { return new URL(p.url).pathname; }));
           return Promise.all(paths.map(function (path) {
             return loadPage(path).then(function (doc) {
               var body = text(doc.querySelector('.wrap'));
@@ -395,14 +463,44 @@
     };
   }
 
-  var wrapped = tools.map(function (tool) {
-    return Object.assign({}, tool, { execute: safe(tool.execute) });
-  });
+  var wrapped = [];
   var status = { api: canRegister ? api : null, registered: [], failed: [] };
   var root = document.documentElement;
+  var pending = Promise.resolve();
+
+  // Wraps tools, makes them callable from window.siteTools, and registers them with WebMCP.
+  // <html data-webmcp> reflects every tool registered so far, from this script and later ones.
+  function addTools(newTools) {
+    var added = newTools.map(function (tool) {
+      return Object.assign({}, tool, { execute: safe(tool.execute) });
+    });
+    wrapped.push.apply(wrapped, added);
+    if (!canRegister) {
+      root.setAttribute('data-webmcp', 'unavailable');
+      return pending;
+    }
+    root.setAttribute('data-webmcp', 'pending');
+    pending = pending.then(function () {
+      return Promise.all(added.map(function (tool) {
+        return Promise.resolve().then(function () { return mc.registerTool(tool); }).then(function () {
+          status.registered.push(tool.name);
+        }, function (err) {
+          status.failed.push(tool.name);
+          console.warn('WebMCP: could not register ' + tool.name, err);
+        });
+      }));
+    }).then(function () {
+      root.setAttribute('data-webmcp',
+        !status.failed.length ? 'registered' : status.registered.length ? 'partial' : 'failed');
+    });
+    return pending;
+  }
 
   window.siteTools = {
     webmcp: status,
+    add: addTools,
+    json: json,
+    absUrl: absUrl,
     list: function () {
       return wrapped.map(function (t) {
         return { name: t.name, description: t.description, inputSchema: t.inputSchema, annotations: t.annotations };
@@ -417,22 +515,6 @@
     }
   };
 
-  if (!canRegister) {
-    root.setAttribute('data-webmcp', 'unavailable');
-    return;
-  }
-
-  root.setAttribute('data-webmcp', 'pending');
-  Promise.all(wrapped.map(function (tool) {
-    return Promise.resolve().then(function () { return mc.registerTool(tool); }).then(function () {
-      status.registered.push(tool.name);
-    }, function (err) {
-      status.failed.push(tool.name);
-      console.warn('WebMCP: could not register ' + tool.name, err);
-    });
-  })).then(function () {
-    root.setAttribute('data-webmcp',
-      !status.failed.length ? 'registered' : status.registered.length ? 'partial' : 'failed');
-  });
+  addTools(tools);
 })();
 </script>
