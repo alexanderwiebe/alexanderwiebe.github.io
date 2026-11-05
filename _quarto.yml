@@ -37,30 +37,32 @@ filters:
   - webmcp
 
 # WebMCP tools for agents, from the quarto-webmcp extension (pinned in quarto-extensions.txt).
-# Writing posts' agent: frontmatter is documented in docs/agent-posts.md.
-webmcp:
-  name: "AJ Wiebe"
-  owner: "AJ Wiebe, Software Engineer and Principal Consultant"
-  about: about.html
-  posts: writing
-  source: "https://github.com/alexanderwiebe/alexanderwiebe.github.io"
-  links:
-    linkedin: "https://www.linkedin.com/in/softwarebyaj"
-    github: "https://github.com/alexanderwiebe"
-  theme:
-    light: "[data-theme-btn=light]"  # unquoted values: Pandoc would curl quotes in metadata
-    dark: "[data-theme-btn=dark]"
-  content:
-    root: ".wrap"
-    heading: ".section-label, h2.h2"
-    skip: ".masthead, .crumb, h1.title, .dek, .post-dates, svg, style, script"
-  # Origin-trial tokens are public by design (bound to one origin). Each browser ignores tokens that
-  # aren't its own or don't match the current origin. Register / renew:
-  #   Chrome: https://developer.chrome.com/origintrials/  (search "WebMCP")
-  #   Edge:   https://developer.microsoft.com/microsoft-edge/origin-trials/trials/0b76fe60-b266-458e-a285-04e375c0c31a
-  # Tokens for alexanderwiebe.github.io aren't registered; add them here if the site stays served there.
-  origin-trials:
-    # Chrome, https://systemsbyaj.com (+ subdomains), expires 2027-03-30
-    - "AgKGuaf9n6UTjNMvnTLNritTbRhgS8ejk/yb18stRQQQ4JUJRcPcyl7S7IyvVlb8tVvzx/NIouOIDvGdYQSSvwAAAABieyJvcmlnaW4iOiJodHRwczovL3N5c3RlbXNieWFqLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxODA2MzY0ODAwLCJpc1N1YmRvbWFpbiI6dHJ1ZX0="
-    # Edge, https://systemsbyaj.com (+ subdomains), expires 2026-12-19
-    - "A/a/yjiSv2qdcJRcyRrWJ/OJ1IpEKTkrhHlHh6VLIJq00iIwzeTgW9EhZaOcqLL4CscF3L5V0VUFtcLA8g1tA9cAAABieyJvcmlnaW4iOiJodHRwczovL3N5c3RlbXNieWFqLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk3NjkwOTk1LCJpc1N1YmRvbWFpbiI6dHJ1ZX0="
+# Writing posts' agent: frontmatter is documented in docs/agent-posts.md. Quarto Wizard completes and
+# checks everything under extensions: webmcp: (the extension's _schema.yml).
+extensions:
+  webmcp:
+    name: "AJ Wiebe"
+    owner: "AJ Wiebe, Software Engineer and Principal Consultant"
+    about: about.html
+    posts: writing
+    source: "https://github.com/alexanderwiebe/alexanderwiebe.github.io"
+    links:
+      linkedin: "https://www.linkedin.com/in/softwarebyaj"
+      github: "https://github.com/alexanderwiebe"
+    theme:
+      light: "[data-theme-btn=light]"  # unquoted values: Pandoc would curl quotes in metadata
+      dark: "[data-theme-btn=dark]"
+    content:
+      root: ".wrap"
+      heading: ".section-label, h2.h2"
+      skip: ".masthead, .crumb, h1.title, .dek, .post-dates, svg, style, script"
+    # Origin-trial tokens are public by design (bound to one origin). Each browser ignores tokens that
+    # aren't its own or don't match the current origin. Register / renew:
+    #   Chrome: https://developer.chrome.com/origintrials/  (search "WebMCP")
+    #   Edge:   https://developer.microsoft.com/microsoft-edge/origin-trials/trials/0b76fe60-b266-458e-a285-04e375c0c31a
+    # Tokens for alexanderwiebe.github.io aren't registered; add them here if the site stays served there.
+    origin-trials:
+      # Chrome, https://systemsbyaj.com (+ subdomains), expires 2027-03-30
+      - "AgKGuaf9n6UTjNMvnTLNritTbRhgS8ejk/yb18stRQQQ4JUJRcPcyl7S7IyvVlb8tVvzx/NIouOIDvGdYQSSvwAAAABieyJvcmlnaW4iOiJodHRwczovL3N5c3RlbXNieWFqLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxODA2MzY0ODAwLCJpc1N1YmRvbWFpbiI6dHJ1ZX0="
+      # Edge, https://systemsbyaj.com (+ subdomains), expires 2026-12-19
+      - "A/a/yjiSv2qdcJRcyRrWJ/OJ1IpEKTkrhHlHh6VLIJq00iIwzeTgW9EhZaOcqLL4CscF3L5V0VUFtcLA8g1tA9cAAABieyJvcmlnaW4iOiJodHRwczovL3N5c3RlbXNieWFqLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk3NjkwOTk1LCJpc1N1YmRvbWFpbiI6dHJ1ZX0="

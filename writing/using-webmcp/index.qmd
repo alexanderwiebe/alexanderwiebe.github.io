@@ -3,35 +3,37 @@ title: "Asking this site questions with WebMCP"
 description: "Every page here registers tools an AI agent can call. Here's what they are and what to ask."
 date: 2026-11-04
 
-agent:
-  summary: "This site registers WebMCP tools on every page, so an agent in your browser can answer questions about AJ, his projects, research and posts from structured data instead of scraping the page; post pages add tools for questioning that one post."
-  takeaways:
-    - "Site-wide tools work on any page: ask about AJ, his work history, projects, research, posts, or search the whole site."
-    - "Post tools only exist on a post's own page: summary, fit, credibility, claims, context and next steps."
-    - "No WebMCP browser? The same tools are callable from the DevTools console through window.siteTools."
-  audience:
-    for: ["People using an AI agent in a WebMCP-enabled browser", "Developers curious how a static site exposes WebMCP tools"]
-    not_for: ["Agents that fetch pages without a browser; they see the HTML, not the tools"]
-    prerequisites: ["A browser with WebMCP enabled, or the browser's DevTools console"]
-  author_experience: "Built and maintains every tool this post describes."
-  tested_against: { webmcp: "Chrome early preview, 2026", quarto: "1.x" }
-  disclosures: []
-  claims:
-    - id: c1
-      claim: "The tools read the site's own published pages, so their answers match what's on the site."
-      evidence: { type: experienced, detail: "How the quarto-webmcp extension and _includes/site-tools.html are written: tools read the index built from the rendered pages, or load and parse the page itself.", link: "#how-it-stays-accurate" }
-    - id: c2
-      claim: "Every tool on this site is read-only except set_theme."
-      evidence: { type: experienced, detail: "Each tool carries readOnlyHint; set_theme only changes the colour scheme for this visitor.", link: "#site-wide-questions" }
-  sources:
-    - { title: "WebMCP (Chrome for Developers)", url: "https://developer.chrome.com/docs/ai/webmcp", relation: background }
-  related: [answerable-posts]
-  limitations:
-    - "The tools exist only while a page is open in a browser that supports WebMCP, or when called from the console."
-    - "Post answers come from the author's own frontmatter. They are structured, not verified."
-  next_steps:
-    - { action: "Open a post and ask it questions", link: "/writing/answerable-posts/" }
-    - { action: "Read the implementation", link: "https://github.com/alexanderwiebe/quarto-webmcp" }
+extensions:
+  webmcp:
+    agent:
+      summary: "This site registers WebMCP tools on every page, so an agent in your browser can answer questions about AJ, his projects, research and posts from structured data instead of scraping the page; post pages add tools for questioning that one post."
+      takeaways:
+        - "Site-wide tools work on any page: ask about AJ, his work history, projects, research, posts, or search the whole site."
+        - "Post tools only exist on a post's own page: summary, fit, credibility, claims, context and next steps."
+        - "No WebMCP browser? The same tools are callable from the DevTools console through window.siteTools."
+      audience:
+        for: ["People using an AI agent in a WebMCP-enabled browser", "Developers curious how a static site exposes WebMCP tools"]
+        not_for: ["Agents that fetch pages without a browser; they see the HTML, not the tools"]
+        prerequisites: ["A browser with WebMCP enabled, or the browser's DevTools console"]
+      author_experience: "Built and maintains every tool this post describes."
+      tested_against: { webmcp: "Chrome early preview, 2026", quarto: "1.x" }
+      disclosures: []
+      claims:
+        - id: c1
+          claim: "The tools read the site's own published pages, so their answers match what's on the site."
+          evidence: { type: experienced, detail: "How the quarto-webmcp extension and _includes/site-tools.html are written: tools read the index built from the rendered pages, or load and parse the page itself.", link: "#how-it-stays-accurate" }
+        - id: c2
+          claim: "Every tool on this site is read-only except set_theme."
+          evidence: { type: experienced, detail: "Each tool carries readOnlyHint; set_theme only changes the colour scheme for this visitor.", link: "#site-wide-questions" }
+      sources:
+        - { title: "WebMCP (Chrome for Developers)", url: "https://developer.chrome.com/docs/ai/webmcp", relation: background }
+      related: [answerable-posts]
+      limitations:
+        - "The tools exist only while a page is open in a browser that supports WebMCP, or when called from the console."
+        - "Post answers come from the author's own frontmatter. They are structured, not verified."
+      next_steps:
+        - { action: "Open a post and ask it questions", link: "/writing/answerable-posts/" }
+        - { action: "Read the implementation", link: "https://github.com/alexanderwiebe/quarto-webmcp" }
 ---
 
 This site has two audiences: you, and whatever AI agent you bring with you. The pages are for you. For the agent, every page also registers [WebMCP](https://developer.chrome.com/docs/ai/webmcp) tools, small functions it can call to get answers as structured data instead of guessing from the layout.
