@@ -19,7 +19,7 @@ agent:
   claims:
     - id: c1
       claim: "The tools read the site's own published pages, so their answers match what's on the site."
-      evidence: { type: experienced, detail: "How _includes/webmcp.html is written: each tool loads and parses the rendered page.", link: "#how-it-stays-accurate" }
+      evidence: { type: experienced, detail: "How the quarto-webmcp extension and _includes/site-tools.html are written: tools read the index built from the rendered pages, or load and parse the page itself.", link: "#how-it-stays-accurate" }
     - id: c2
       claim: "Every tool on this site is read-only except set_theme."
       evidence: { type: experienced, detail: "Each tool carries readOnlyHint; set_theme only changes the colour scheme for this visitor.", link: "#site-wide-questions" }
@@ -31,7 +31,7 @@ agent:
     - "Post answers come from the author's own frontmatter. They are structured, not verified."
   next_steps:
     - { action: "Open a post and ask it questions", link: "/writing/answerable-posts/" }
-    - { action: "Read the implementation", link: "https://github.com/alexanderwiebe/alexanderwiebe.github.io/blob/main/_includes/webmcp.html" }
+    - { action: "Read the implementation", link: "https://github.com/alexanderwiebe/quarto-webmcp" }
 ---
 
 This site has two audiences: you, and whatever AI agent you bring with you. The pages are for you. For the agent, every page also registers [WebMCP](https://developer.chrome.com/docs/ai/webmcp) tools, small functions it can call to get answers as structured data instead of guessing from the layout.
@@ -51,6 +51,7 @@ These tools are registered on every page, so you can ask them from anywhere on t
 | "What is this site? What can I find here?" | `about_this_website` |
 | "Who is AJ Wiebe and how do I contact him?" | `about_aj_wiebe` |
 | "What's on the page I'm looking at?" | `get_current_page` |
+| "What pages are on this site? What does the Research page say?" | `list_pages`, `get_page` |
 | "Where has AJ worked? What's his education?" | `get_experience` |
 | "What has AJ built?" | `list_projects` |
 | "Tell me about the AI Briefing project." | `get_project` |
@@ -102,7 +103,9 @@ Pass input as a plain object, not a JSON string. Bad input returns an error with
 
 ## How it stays accurate
 
-The tools don't keep a copy of the site. Each one loads the site's own rendered pages and reads them, so when a page changes, the answers change with it. Post tools read the post's `agent:` frontmatter, the same file the post itself is written in, so the prose and the structured answers can't drift apart.
+The tools don't keep a hand-written copy of the site. Each build writes an index of every rendered page, and the tools read that index or load the page itself, so when a page changes, the answers change with it. Post tools read the post's `agent:` frontmatter, the same file the post itself is written in, so the prose and the structured answers can't drift apart.
+
+The tools come from [quarto-webmcp](https://github.com/alexanderwiebe/quarto-webmcp), a Quarto extension extracted from this site, so any Quarto site can do the same.
 
 ## What this doesn't do
 

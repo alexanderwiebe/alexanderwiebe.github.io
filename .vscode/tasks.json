@@ -93,7 +93,15 @@
     // ── Quarto ───────────────────────────────────────────────────────────────
 
     {
+      "label": "Install Quarto Extensions",
+      "type": "shell",
+      "command": "NODE_OPTIONS= scripts/install-quarto-extensions.sh",
+      "group": "none",
+      "problemMatcher": []
+    },
+    {
       "label": "Quarto Preview",
+      "dependsOn": ["Install Quarto Extensions"],
       "type": "shell",
       "command": "NODE_OPTIONS= quarto preview",
       "group": "none",
@@ -102,6 +110,7 @@
     },
     {
       "label": "Quarto Render",
+      "dependsOn": ["Install Quarto Extensions"],
       "type": "shell",
       "command": "NODE_OPTIONS= quarto render",
       "group": "none",
@@ -109,6 +118,7 @@
     },
     {
       "label": "Quarto Render Active File",
+      "dependsOn": ["Install Quarto Extensions"],
       "type": "shell",
       "command": "NODE_OPTIONS= quarto render \"${file}\"",
       "group": "none",
@@ -116,6 +126,7 @@
     },
     {
       "label": "Quarto Publish",
+      "dependsOn": ["Install Quarto Extensions"],
       "type": "shell",
       "command": "NODE_OPTIONS= quarto publish",
       "group": "none",
