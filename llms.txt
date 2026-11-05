@@ -15,14 +15,15 @@
 
 Every page registers WebMCP tools (document.modelContext) in browsers that support it. They return the site's content as structured JSON and are read-only, except set_theme.
 
-- about_this_website: what the site is, every page, how it was built, the other tools
+- about_this_website: what the site is, every page, the latest posts, the other tools
 - about_aj_wiebe: bio, work history, education, projects, research and contact links in one call
 - get_current_page: the content of the page that is open, as structured sections
+- list_pages, get_page: every page, and any page's content as structured sections
 - list_projects, get_project: the projects and their full write-ups
 - get_experience: résumé and education
 - list_research: publications and research interests
 - list_posts, get_post: the blog posts, and one post's structured data (thesis, audience, claims with evidence types, limitations, sources, disclosures, next steps)
-- search_site: full-text search across all pages
+- search_site: full-text search across all pages and posts
 - set_theme: switch between light and dark themes
 
 Blog post pages (under /writing/) also register tools about the post that is open:
@@ -40,6 +41,9 @@ The same tools can be called from page JavaScript in any browser, including ones
 - await window.siteTools.call("about_this_website", {}): returns the same JSON string as the WebMCP tool
 - window.siteTools.webmcp: which API registered the tools (document.modelContext or navigator.modelContext), or null
 - The data-webmcp attribute on <html> shows the status: registered, partial, failed or unavailable
+
+The full page and post index is at https://systemsbyaj.com/webmcp-index.json. The site-wide and post tools
+come from the quarto-webmcp extension: https://github.com/alexanderwiebe/quarto-webmcp
 
 ## Elsewhere
 
