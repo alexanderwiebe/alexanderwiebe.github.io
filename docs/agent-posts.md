@@ -21,36 +21,40 @@ date: 2026-11-04
 date-modified: 2026-11-04   # optional
 draft: true                 # optional; drafts are not published or listed
 
-agent:
-  summary: "The thesis in one sentence."
-  takeaways:
-    - "What a reader should remember."
-  audience:
-    for: ["Platform engineers", "Teams whose CI takes over 20 minutes"]
-    not_for: ["Monorepos built with Bazel"]
-    prerequisites: ["GitHub Actions", "Basic Docker"]
-  author_experience: "What AJ has done hands-on that this post draws on."
-  tested_against: { github_actions: "2026-09", docker: "27.x" }
-  outdated: []              # sections AJ knows no longer hold
-  disclosures: []           # sponsorships, affiliate links, products sold
-  claims:
-    - id: c1
-      claim: "Layer caching added about 4 minutes per run on cold runners."
-      evidence: { type: measured, detail: "120 runs before and after", link: "#benchmarks" }
-    - id: c2
-      claim: "Most teams don't benefit from layer caching."
-      evidence: { type: opinion, detail: "From 4 codebases; not generalizable." }
-  sources:
-    - { title: "Docker build cache docs", url: "https://docs.docker.com/build/cache/", relation: background }
-  related: []               # slugs of other posts under writing/
-  limitations:
-    - "Doesn't apply to self-hosted runners with persistent disks."
-  next_steps:
-    - { action: "Copy the workflow file", link: "ci.yml" }
+extensions:
+  webmcp:
+    agent:
+      summary: "The thesis in one sentence."
+      takeaways:
+        - "What a reader should remember."
+      audience:
+        for: ["Platform engineers", "Teams whose CI takes over 20 minutes"]
+        not_for: ["Monorepos built with Bazel"]
+        prerequisites: ["GitHub Actions", "Basic Docker"]
+      author_experience: "What AJ has done hands-on that this post draws on."
+      tested_against: { github_actions: "2026-09", docker: "27.x" }
+      outdated: []              # sections AJ knows no longer hold
+      disclosures: []           # sponsorships, affiliate links, products sold
+      claims:
+        - id: c1
+          claim: "Layer caching added about 4 minutes per run on cold runners."
+          evidence: { type: measured, detail: "120 runs before and after", link: "#benchmarks" }
+        - id: c2
+          claim: "Most teams don't benefit from layer caching."
+          evidence: { type: opinion, detail: "From 4 codebases; not generalizable." }
+      sources:
+        - { title: "Docker build cache docs", url: "https://docs.docker.com/build/cache/", relation: background }
+      related: []               # slugs of other posts under writing/
+      limitations:
+        - "Doesn't apply to self-hosted runners with persistent disks."
+      next_steps:
+        - { action: "Copy the workflow file", link: "ci.yml" }
 ---
 ```
 
-Every `agent:` field is optional. Leave out what doesn't apply; the tools return empty lists.
+The `agent:` block goes under `extensions: webmcp:`, where [Quarto Wizard](https://m.canouil.dev/quarto-wizard/)
+autocompletes and checks it in VS Code (type `agent` for a snippet). Every field is optional. Leave out what
+doesn't apply; the tools return empty lists.
 
 Rules the build enforces (the quarto-webmcp extension fails the render otherwise):
 
@@ -67,7 +71,7 @@ Second-level headings (`##`) get anchors from their text: `## Benchmarks` is `#b
 | Piece | Job |
 |---|---|
 | `quarto-extensions.txt` | Pins the [quarto-webmcp](https://github.com/alexanderwiebe/quarto-webmcp) extension, installed into `_extensions/alexanderwiebe/webmcp/` (not committed). The extension validates `agent:`, embeds each page's data, and registers the site and post tools |
-| `webmcp:` in `_quarto.yml` | Extension settings: owner, posts folder (`writing`), theme buttons, this site's layout selectors, origin-trial tokens |
+| `extensions: webmcp:` in `_quarto.yml` | Extension settings: owner, posts folder (`writing`), theme buttons, this site's layout selectors, origin-trial tokens |
 | `webmcp-index.ts` (post-render) | Writes `webmcp-index.json`, which `list_posts`, `get_post`, `get_page` and `search_site` read |
 | `_includes/site-tools.html` | This site's own tools: `about_aj_wiebe`, `list_projects`, `get_project`, `get_experience`, `list_research` |
 | `_filters/writing-post.lua` | Wraps the post in the site chrome (masthead, crumb, title, dek, dates) |

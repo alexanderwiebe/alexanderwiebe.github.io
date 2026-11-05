@@ -2,4 +2,4 @@
 # Installed into _extensions/ (not committed) by scripts/install-quarto-extensions.sh, which runs
 # before every preview and render: the VS Code Quarto tasks, `make extensions`, CI and publish.
 # To upgrade, change the tag here.
-alexanderwiebe/quarto-webmcp@v0.2.0
+alexanderwiebe/quarto-webmcp@v0.3.0
