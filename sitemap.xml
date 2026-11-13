@@ -1,51 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://systemsbyaj.com/writing/index.html</loc>
-    <lastmod>2026-11-05T03:32:41.052Z</lastmod>
-  </url>
-  <url>
     <loc>https://systemsbyaj.com/writing/answerable-posts/index.html</loc>
-    <lastmod>2026-11-05T03:32:41.052Z</lastmod>
+    <lastmod>2026-11-13T13:44:30.683Z</lastmod>
   </url>
   <url>
-    <loc>https://systemsbyaj.com/research.html</loc>
-    <lastmod>2026-11-05T03:32:41.051Z</lastmod>
-  </url>
-  <url>
-    <loc>https://systemsbyaj.com/projects/index.html</loc>
-    <lastmod>2026-11-05T03:32:41.051Z</lastmod>
-  </url>
-  <url>
-    <loc>https://systemsbyaj.com/projects/this-site.html</loc>
-    <lastmod>2026-11-05T03:32:41.051Z</lastmod>
-  </url>
-  <url>
-    <loc>https://systemsbyaj.com/index.html</loc>
-    <lastmod>2026-11-05T03:32:41.050Z</lastmod>
-  </url>
-  <url>
-    <loc>https://systemsbyaj.com/about.html</loc>
-    <lastmod>2026-11-05T03:32:41.050Z</lastmod>
-  </url>
-  <url>
-    <loc>https://systemsbyaj.com/projects/ai-briefing.html</loc>
-    <lastmod>2026-11-05T03:32:41.051Z</lastmod>
-  </url>
-  <url>
-    <loc>https://systemsbyaj.com/projects/aj-starter-gold.html</loc>
-    <lastmod>2026-11-05T03:32:41.051Z</lastmod>
-  </url>
-  <url>
-    <loc>https://systemsbyaj.com/projects/research-knowledge-graph.html</loc>
-    <lastmod>2026-11-05T03:32:41.051Z</lastmod>
+    <loc>https://systemsbyaj.com/writing/angular-suffix-lens/index.html</loc>
+    <lastmod>2026-11-13T13:44:30.683Z</lastmod>
   </url>
   <url>
     <loc>https://systemsbyaj.com/resume.html</loc>
-    <lastmod>2026-11-05T03:32:41.051Z</lastmod>
+    <lastmod>2026-11-13T13:44:30.680Z</lastmod>
+  </url>
+  <url>
+    <loc>https://systemsbyaj.com/projects/research-knowledge-graph.html</loc>
+    <lastmod>2026-11-13T13:44:30.680Z</lastmod>
+  </url>
+  <url>
+    <loc>https://systemsbyaj.com/projects/ai-briefing.html</loc>
+    <lastmod>2026-11-13T13:44:30.680Z</lastmod>
+  </url>
+  <url>
+    <loc>https://systemsbyaj.com/projects/this-site.html</loc>
+    <lastmod>2026-11-13T13:44:30.680Z</lastmod>
+  </url>
+  <url>
+    <loc>https://systemsbyaj.com/about.html</loc>
+    <lastmod>2026-11-13T13:44:30.679Z</lastmod>
+  </url>
+  <url>
+    <loc>https://systemsbyaj.com/index.html</loc>
+    <lastmod>2026-11-13T13:44:30.679Z</lastmod>
+  </url>
+  <url>
+    <loc>https://systemsbyaj.com/projects/aj-starter-gold.html</loc>
+    <lastmod>2026-11-13T13:44:30.680Z</lastmod>
+  </url>
+  <url>
+    <loc>https://systemsbyaj.com/projects/index.html</loc>
+    <lastmod>2026-11-13T13:44:30.680Z</lastmod>
+  </url>
+  <url>
+    <loc>https://systemsbyaj.com/research.html</loc>
+    <lastmod>2026-11-13T13:44:30.680Z</lastmod>
   </url>
   <url>
     <loc>https://systemsbyaj.com/writing/using-webmcp/index.html</loc>
-    <lastmod>2026-11-05T03:32:41.052Z</lastmod>
+    <lastmod>2026-11-13T13:44:30.684Z</lastmod>
+  </url>
+  <url>
+    <loc>https://systemsbyaj.com/writing/index.html</loc>
+    <lastmod>2026-11-13T13:44:30.684Z</lastmod>
   </url>
 </urlset>
