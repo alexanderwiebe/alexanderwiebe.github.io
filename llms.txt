@@ -9,7 +9,7 @@
 - [Résumé](https://systemsbyaj.com/resume.html): Public career summary and education
 - [Research](https://systemsbyaj.com/research.html): Published papers, master's thesis, current research topics
 - [Projects](https://systemsbyaj.com/projects/): What AJ builds and why
-- [Writing](https://systemsbyaj.com/writing/): Articles (none published yet)
+- [Writing](https://systemsbyaj.com/writing/): Articles, including "Angular dropped the suffixes" (https://systemsbyaj.com/writing/angular-suffix-lens/)
 
 ## WebMCP tools
 
