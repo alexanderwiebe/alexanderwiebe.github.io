@@ -1,3 +1,8 @@
 # Applies to every page under writing/. _filters/writing-post.lua draws the post header itself
-# (crumb, title, dek, dates), so Quarto's own title block is turned off.
+# (crumb, title, dek, dates), so Quarto's own title block is turned off. `title-block-style: none`
+# alone doesn't remove it with `theme: none`, so the title-block partial is replaced with an empty one.
 title-block-style: none
+format:
+  html:
+    template-partials:
+      - _partials/title-block.html
